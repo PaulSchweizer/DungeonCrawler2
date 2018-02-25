@@ -1,0 +1,48 @@
+- Game Logic ------------------------------------------
+
+ ☐ Test Testing
+
+Inventory:
+ ☐ Item
+ ☐ Weapon
+ ☐ Armour
+
+Character:
+ ☐ Stats
+ ☐ Aspect
+ ☐ Skill
+ ☐ Stunt
+ ☐ Tests
+
+GlobalState:
+ ☐ Variables
+ ☐ Support arbitrary data type
+
+Quest System:
+ ☐ Quests
+
+Dialogs:
+ ☐ Inkle integration
+
+UIs:
+ ☐ MainMenuUI
+ ☐ PlayerMenuUI
+ ☐ HUDMessageUI
+ ☐ InventoryUI
+ ☐ ExitUI
+ ☐ GameOverUI
+
+- Editor ----------------------------------------------
+
+Data Pipeline:
+ ☐ Download data from google drive (python script)
+ ☐ Convert the json data into ScriptableObjects and extend the existing database
+  ☐ Restrictions:
+   ☐ Have an attribute, like "json driven" on the items. If true the item can't be edited, only through the json data workflow
+
+Location:
+ ☐ Build location manually
+ ☐ Read from json file
+ ☐ Build in Unity at runtime
+
+ ☐ Have a level be a scene with a LevelBuilder in it, referencing a json file (or not) and executing the level building if it has a json file in it
