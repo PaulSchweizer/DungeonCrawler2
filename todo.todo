@@ -1,11 +1,13 @@
 - Game Logic ------------------------------------------
 
- ☐ Test Testing
+ ✔ Test Testing @done (18-02-25 19:24)
+ ☐ Test Json Serialization
 
 Inventory:
  ☐ Item
  ☐ Weapon
  ☐ Armour
+ ☐ On deserialize, re-use non unique items
 
 Character:
  ☐ Stats
