@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
 
 [CreateAssetMenu(fileName = "Item", menuName = "DungeonCrawler/Item")]
+[Serializable]
 public class Item : ScriptableObject
 {
     public string Id;

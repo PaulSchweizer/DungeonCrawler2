@@ -8,8 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c95b8cb14a01f44ae4f3453f249432, type: 3}
-  m_Name: Item
+  m_Script: {fileID: 11500000, guid: 745672d7b2f2d6141b2368d0f4ea9f00, type: 3}
+  m_Name: Coin
   m_EditorClassIdentifier: 
   Id: 0
-  Name: Item
+  Name: Coin

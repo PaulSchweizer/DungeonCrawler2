@@ -2,8 +2,11 @@
 
  ✔ Test Testing @done (18-02-25 19:24)
  ☐ Test Json Serialization
+  ☐ Serialize Inventory
+
 
 Inventory:
+ ☐ ItemDatabase
  ☐ Item
  ☐ Weapon
  ☐ Armour

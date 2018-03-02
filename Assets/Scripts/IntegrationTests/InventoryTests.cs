@@ -2,6 +2,7 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class InventoryTests
 {
@@ -10,11 +11,16 @@ public class InventoryTests
     public Inventory InventoryB;
     public Item Item;
 
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        SceneManager.LoadScene("Scripts/IntegrationTests/TestScenes/InventoryTests");
+    }
     [SetUp]
     public void SetUp()
     {
-        InventoryA = new Inventory();
-        InventoryB = new Inventory();
+        InventoryA = GameObject.Find("InventoryA").GetComponent<Inventory>();
+        InventoryB = GameObject.Find("InventoryB").GetComponent<Inventory>();
 
         Item = ScriptableObject.CreateInstance<Item>();
         Item.Id = "0";
@@ -24,6 +30,7 @@ public class InventoryTests
     [Test]
 	public void Add_and_remove_items()
     {
+        Debug.Log(InventoryA.Items.Count);
         InventoryA.AddItem(Item, 10);
 
         Assert.AreEqual(1, InventoryA.Items.Count);
@@ -46,5 +53,14 @@ public class InventoryTests
         Assert.AreEqual(1, InventoryB.Items.Count);
         Assert.AreEqual(10, InventoryB.Amount(Item));
         Assert.AreEqual(0, InventoryA.Items.Count);
+    }
+
+    [Test]
+    public void Serialize_Inventory()
+    {
+        InventoryA.AddItem(Item, 10);
+        string json = JsonUtility.ToJson(InventoryA);
+
+        Debug.Log(json);
     }
 }

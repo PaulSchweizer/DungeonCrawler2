@@ -24,6 +24,14 @@ public class Inventory : MonoBehaviour
 {
     public List<InventoryEntry> Items = new List<InventoryEntry>();
 
+    //private void Awake()
+    //{
+    //    if (Items == null)
+    //    {
+    //        Items = new List<InventoryEntry>();
+    //    }
+    //}
+
     public void AddItem(Item item, int amount = 1)
     {
         for(int i = 0; i < Items.Count; i++)
