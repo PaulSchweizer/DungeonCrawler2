@@ -6,8 +6,32 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 [CreateAssetMenu(fileName = "ItemDatabase", menuName = "DungeonCrawler/ItemDatabase")]
-class ItemDatabase : ScriptableObject
+public class ItemDatabase : ScriptableObject
 {
     public Item[] Items;
+
+    public T ItemByName<T>(string name)
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            if (Items[i].Name == name)
+            {
+                return (T)Convert.ChangeType(Items[i], typeof(T));
+            }
+        }
+        return default(T);
+    }
+
+    public T ItemByIdentifier<T>(string identifier)
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            if (Items[i].Identifier == identifier)
+            {
+                return (T)Convert.ChangeType(Items[i], typeof(T));
+            }
+        }
+        return default(T);
+    }
 }
 

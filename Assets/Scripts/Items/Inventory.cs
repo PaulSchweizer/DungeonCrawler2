@@ -22,15 +22,8 @@ public class InventoryEntry
 
 public class Inventory : MonoBehaviour
 {
+    public ItemDatabase ItemDatabase;
     public List<InventoryEntry> Items = new List<InventoryEntry>();
-
-    //private void Awake()
-    //{
-    //    if (Items == null)
-    //    {
-    //        Items = new List<InventoryEntry>();
-    //    }
-    //}
 
     public void AddItem(Item item, int amount = 1)
     {
@@ -86,5 +79,30 @@ public class Inventory : MonoBehaviour
         }
         thatInventory.Clear();
         return thisInventory;
+    }
+
+    // Json Schema:
+    // {
+    //    "Item1.Id": 100
+    // }
+    public string SerializeToJson()
+    {
+        Dictionary<string, int> data = new Dictionary<string, int>();
+        for (int i = 0; i < Items.Count; i++)
+        {
+            data[Items[i].Item.Identifier] = Items[i].Amount;
+        }
+        return SerializationUtilitites.SerializeToJson(data);
+    }
+
+    public void DeserializeFromJson(string json)
+    {
+        Clear();
+        Dictionary<string, int> data = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
+        foreach(KeyValuePair<string, int> entry in data)
+        {
+            Item item = ItemDatabase.ItemByIdentifier<Item>(entry.Key);
+            AddItem(item, entry.Value);
+        }
     }
 }

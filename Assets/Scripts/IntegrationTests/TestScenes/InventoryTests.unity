@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd19d5621522e9240bf14f33edd1dd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
   Items: []
 --- !u!4 &1739630139
 Transform:
@@ -344,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd19d5621522e9240bf14f33edd1dd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
   Items: []
 --- !u!4 &1762011787
 Transform:
