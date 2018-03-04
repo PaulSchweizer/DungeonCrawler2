@@ -85,24 +85,23 @@ public class Inventory : MonoBehaviour
     // {
     //    "Item1.Id": 100
     // }
-    public string SerializeToJson()
+    public Dictionary<string, int> SerializeToData()
     {
         Dictionary<string, int> data = new Dictionary<string, int>();
         for (int i = 0; i < Items.Count; i++)
         {
             data[Items[i].Item.Identifier] = Items[i].Amount;
         }
-        return SerializationUtilitites.SerializeToJson(data);
+        return data;
     }
 
-    public void DeserializeFromJson(string json)
+    public void DeserializeFromData(Dictionary<string, object> data)
     {
         Clear();
-        Dictionary<string, int> data = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
-        foreach(KeyValuePair<string, int> entry in data)
+        foreach(KeyValuePair<string, object> entry in data)
         {
             Item item = ItemDatabase.ItemByIdentifier<Item>(entry.Key);
-            AddItem(item, entry.Value);
+            AddItem(item, Convert.ToInt32(entry.Value));
         }
     }
 }

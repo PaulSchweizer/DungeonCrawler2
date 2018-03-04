@@ -18,9 +18,4 @@ public class Item : ScriptableObject
             return string.Format("{0}-{1}", Name, Id);
         }
     }
-
-    public static Item DeserializeFromJson(string json)
-    {
-        return JsonConvert.DeserializeObject<Item>(json);
-    }
 }

@@ -22,5 +22,15 @@ public static class SerializationUtilitites
             return stringWriter.ToString();
         }
     }
+
+    public static Dictionary<string, object> DeserializeFromJson(string json)
+    {
+        return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+    }
+
+    public static Dictionary<string, object> DeserializeFromObject(object obj)
+    {
+        return DeserializeFromJson(JsonConvert.SerializeObject(obj));
+    }
 }
 

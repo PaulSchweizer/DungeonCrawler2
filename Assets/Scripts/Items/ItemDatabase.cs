@@ -33,5 +33,17 @@ public class ItemDatabase : ScriptableObject
         }
         return default(T);
     }
+
+    public Item ItemByIdentifier(string identifier)
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            if (Items[i].Identifier == identifier)
+            {
+                return Items[i];
+            }
+        }
+        return null;
+    }
 }
 

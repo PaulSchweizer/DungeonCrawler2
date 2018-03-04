@@ -14,16 +14,25 @@ Inventory:
  ✔ Item @done (18-03-03 16:02)
  ✔ On deserialize, re-use non unique items @done (18-03-03 16:02)
  ✔ Weapon @done (18-03-03 16:38)
- ☐ Armour
+ ✔ Armour @done (18-03-03 21:05)
 
 Character:
+ ✔ "Controller" -> The Character @done (18-03-03 21:06)
+ ✔ Serialize @done (18-03-04 10:49)
+ ✔ Deserialize @done (18-03-04 10:49)
+  ✔ Attributes @done (18-03-03 22:38)
+  ✔ Inventory @done (18-03-03 22:38)
+  ✔ Skills @done (18-03-04 10:49)
+   ✔ SkillDatabase @done (18-03-04 10:49)
+  ✔ Equipment @done (18-03-04 10:49)
  ☐ Stats
- ☐ Aspect
- ☐ Skill
- ☐ Stunt
- ☐ Tests
- ☐ Serialize
- ☐ Deserialize
+  ✔ Skills @done (18-03-03 21:06)
+  ☐ Aspects
+  ☐ Stunts
+
+ ☐ Re-implement States
+  ☐ Movement
+
 
 GlobalState:
  ☐ Variables

@@ -17,6 +17,7 @@ public class InventoryTests
     {
         SceneManager.LoadScene("Scripts/IntegrationTests/TestScenes/InventoryTests");
     }
+
     [SetUp]
     public void SetUp()
     {
@@ -69,8 +70,8 @@ public class InventoryTests
     public void Serialize_Inventory()
     {
         InventoryA.AddItem(TestItem, 10);
-        string json = InventoryA.SerializeToJson();
-        InventoryB.DeserializeFromJson(json);
+        string json = SerializationUtilitites.SerializeToJson(InventoryA.SerializeToData());
+        InventoryB.DeserializeFromData(SerializationUtilitites.DeserializeFromJson(json));
 
         Assert.AreEqual(InventoryA.Items.Count, InventoryB.Items.Count);
         for (int i = 0; i < InventoryA.Items.Count; i++)
