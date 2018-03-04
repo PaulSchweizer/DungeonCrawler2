@@ -13,7 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Athletics
   Description: Avoid danger!
-  OpposingSkills:
-  - {fileID: 0}
+  OpposingSkills: []
   Actions:
   - Defend

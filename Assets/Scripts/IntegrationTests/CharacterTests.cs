@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class CharacterTests
 {
-    public Character PlayerA;
-    public Character PlayerB;
+    public PlayerCharacter PlayerA;
+    public PlayerCharacter PlayerB;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -20,8 +20,8 @@ public class CharacterTests
     [SetUp]
     public void SetUp()
     {
-        PlayerA = GameObject.Find("PlayerA").GetComponent<Character>();
-        PlayerB = GameObject.Find("PlayerB").GetComponent<Character>();
+        PlayerA = GameObject.Find("PlayerA").GetComponent<PlayerCharacter>();
+        PlayerB = GameObject.Find("PlayerB").GetComponent<PlayerCharacter>();
     }
     
     [Test]
@@ -32,6 +32,8 @@ public class CharacterTests
 
         PlayerB.DeserializeFromJson(jsonPlayerA);
         string jsonPlayerB = SerializationUtilitites.SerializeToJson(PlayerB.SerializeToData());
+        Debug.Log(jsonPlayerA);
+        Debug.Log(jsonPlayerB);
         Assert.AreEqual(jsonPlayerB, jsonPlayerA);
     }
 }
