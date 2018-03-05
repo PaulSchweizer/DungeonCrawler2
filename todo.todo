@@ -39,7 +39,8 @@ Character:
    ☐ unify the rotate to target in states
    ✔ Enemy @done (18-03-04 22:46)
   ☐ AttackState
-   ☐ AttackShape.PointInArea
+   ✔ AttackShape.PointInArea @done (18-03-05 23:16)
+   ☐ Implement Radius in AttackShape calculation
    ☐ Re-implement combat
 
 GlobalState:

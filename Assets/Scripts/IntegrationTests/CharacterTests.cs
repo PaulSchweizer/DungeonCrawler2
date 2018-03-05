@@ -23,7 +23,7 @@ public class CharacterTests
         PlayerA = GameObject.Find("PlayerA").GetComponent<PlayerCharacter>();
         PlayerB = GameObject.Find("PlayerB").GetComponent<PlayerCharacter>();
     }
-    
+
     [Test]
     public void SerializePlayer()
     {
