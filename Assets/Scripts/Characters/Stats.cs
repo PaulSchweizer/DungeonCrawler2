@@ -59,9 +59,25 @@ public class Stats : ScriptableObject
     public float Radius;
     public float AlertnessRadius;
 
+    [Header("Aspects and Tags")]
+    public List<string> Tags;
+    public List<Aspect> Aspects;
+
     [Header("References")]
     public ItemDatabase ItemDatabase;
     public SkillDatabase SkillDatabase;
+
+    public int SkillValue(Skill skill)
+    {
+        for(int i = 0; i < Skills.Length; i++)
+        {
+            if (Skills[i].Skill == skill)
+            {
+                return Skills[i].Value;
+            }
+        }
+        return 0;
+    }
 
     #region Serialization
 

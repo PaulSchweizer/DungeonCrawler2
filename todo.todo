@@ -42,6 +42,22 @@ Character:
    ✔ AttackShape.PointInArea @done (18-03-05 23:16)
    ☐ Implement Radius in AttackShape calculation
    ☐ Re-implement combat
+    ☐ Attack
+    ☐ ScheduleAttack
+    ☐ Defend
+    ☐ Damage
+    ☐ Protection
+    ☐ TakenOut
+    ☐ Only Attack when the Player clicks
+ ☐ GameMaster -> ScriptableObject, referenced by Character etc.
+ ☐ Re-implement Rulebook.SynonymsOf(tag) as ScriptableObject tag database object
+ ☐ ParseNameForTags()
+ ☐ Serialize Tags and Aspects
+ ☐ Consequences
+ ☐ Equipment
+ ☐ stunts
+ ☐ GameEventsLogger
+ ☐ ReceiveXP
 
 GlobalState:
  ☐ Variables
