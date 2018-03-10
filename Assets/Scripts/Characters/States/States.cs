@@ -65,8 +65,6 @@ public class MoveState : CharacterState
         SetSpeed(character);
         if (character.NavMeshAgent.remainingDistance <= character.NavMeshAgent.stoppingDistance)
         {
-            //if ((!character.NavMeshAgent.hasPath || Mathf.Abs(character.NavMeshAgent.velocity.sqrMagnitude) < float.Epsilon)
-            //    && Vector3.Angle(character.transform.forward, character.DestinationRotation) <= RotationThreshold)
             if (Vector3.Angle(character.transform.forward, character.DestinationRotation) <= RotationThreshold)
             {
                 character.ChangeState(character.Idle);
@@ -90,7 +88,7 @@ public class MoveState : CharacterState
 public class ChaseState : CharacterState
 {
 
-    private float RotationThreshold = 5;
+    private float RotationThreshold = 1;
 
     public static ChaseState Instance = new ChaseState();
 
@@ -121,10 +119,10 @@ public class ChaseState : CharacterState
             }
             else
             {
-                float step = (character.NavMeshAgent.angularSpeed * Time.deltaTime * Mathf.PI) / 180;
-                Vector3 forward = new Vector3(character.transform.forward.x, character.DestinationRotation.y, character.transform.forward.z);
-                Vector3 newDir = Vector3.RotateTowards(forward, character.DestinationRotation, step, 0);
-                character.transform.rotation = Quaternion.LookRotation(newDir);
+                float speed = (character.NavMeshAgent.angularSpeed * Mathf.PI) / 180;
+                Vector3 to = character.NavMeshAgent.destination - character.transform.position;
+                Quaternion _lookRotation = Quaternion.LookRotation(to);
+                character.transform.rotation = Quaternion.Slerp(character.transform.rotation, _lookRotation, speed * Time.deltaTime);
             }
         }
     }
@@ -148,6 +146,7 @@ public class CombatState : CharacterState
     {
         character.NavMeshAgent.isStopped = true;
         character.Animator.SetInteger("State", 3);
+        character.Animator.SetFloat("Speed", character.AttackSpeed);
     }
 
     public override void Update(BaseCharacter character)
@@ -156,9 +155,12 @@ public class CombatState : CharacterState
         {
             character.ScheduledAttack.CurrentTime += Time.deltaTime;
             //character.AttackSlider.value = character.Data.ScheduledAttack.CurrentTime;
+            DebugColor = Color.red;
+            Debug.Log(character.ScheduledAttack.Progress());
             if (character.ScheduledAttack.Progress() >= 0.5 && !character.ScheduledAttack.HitOccurred)
             {
                 character.ScheduledAttack.Hit();
+                DebugColor = Color.yellow;
                 //character.AttackSlider.fillRect.GetComponent<Image>().color = new Color(0f, 0f, 1f);
             }
             else if (character.ScheduledAttack.Progress() >= 1)
@@ -179,27 +181,28 @@ public class CombatState : CharacterState
     }
 }
 
-//public class TakenOutState : CharacterState
-//{
-//    public static TakenOutState Instance = new TakenOutState();
+public class TakenOutState : CharacterState
+{
+    public static TakenOutState Instance = new TakenOutState();
 
-//    public TakenOutState()
-//    {
-//        DebugColor = Color.grey;
-//    }
+    public TakenOutState()
+    {
+        DebugColor = Color.grey;
+    }
 
-//    public override void Enter(BaseCharacter character)
-//    {
-//        character.NavMeshAgent.enabled = false;
-//        character.DropLoot();
-//        GameMaster.DeRegisterCharacter(character.Data);
-//        character.tag = "Untagged";
-//    }
+    public override void Enter(BaseCharacter character)
+    {
+        character.Animator.SetInteger("State", 4);
+        character.NavMeshAgent.enabled = false;
+        //character.DropLoot();
+        BaseCharacter.Characters.Remove(character);
+        character.tag = "Untagged";
+    }
 
-//    public override void Update(BaseCharacter character) { }
+    public override void Update(BaseCharacter character) { }
 
-//    public override void Exit(BaseCharacter character) { }
-//}
+    public override void Exit(BaseCharacter character) { }
+}
 
 //public class MoveToNPCState : CharacterState
 //{

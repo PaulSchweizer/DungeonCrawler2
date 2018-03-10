@@ -23,14 +23,24 @@ public static class SerializationUtilitites
         }
     }
 
-    public static Dictionary<string, object> DeserializeFromJson(string json)
+    //public static Dictionary<string, object> DeserializeFromJson(string json)
+    //{
+    //    return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+    //}
+
+    //public static Dictionary<string, object> DeserializeFromObject(object obj)
+    //{
+    //    return DeserializeFromJson(JsonConvert.SerializeObject(obj));
+    //}
+
+    public static T DeserializeFromJson<T>(string json)
     {
-        return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+        return JsonConvert.DeserializeObject<T>(json);
     }
 
-    public static Dictionary<string, object> DeserializeFromObject(object obj)
+    public static T DeserializeFromObject<T>(object obj)
     {
-        return DeserializeFromJson(JsonConvert.SerializeObject(obj));
+        return DeserializeFromJson<T>(JsonConvert.SerializeObject(obj));
     }
 }
 

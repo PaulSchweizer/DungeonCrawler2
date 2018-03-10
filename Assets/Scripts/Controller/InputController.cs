@@ -67,16 +67,17 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private void HitEnemy(RaycastHit hit)
     {
         BaseCharacter enemy = hit.transform.GetComponent<BaseCharacter>();
-        Vector3 point = enemy.transform.position;
+        //Vector3 point = enemy.transform.position;
         for (int i = 0; i < PlayerCharacters.Length; i++)
         {
             if (!PlayerCharacters[i].ScheduledAttack.IsActive)
             {
-                Vector3 from_pc_to_enemy = point - PlayerCharacters[i].transform.position;
+                Vector3 from_pc_to_enemy = enemy.transform.position - PlayerCharacters[i].transform.position;
                 float mag = from_pc_to_enemy.magnitude;
                 from_pc_to_enemy.Normalize();
-                from_pc_to_enemy *= mag - PlayerCharacters[i].NavMeshAgent.radius - enemy.NavMeshAgent.radius;
-                point = PlayerCharacters[i].transform.position + from_pc_to_enemy;
+                from_pc_to_enemy = from_pc_to_enemy * (mag - PlayerCharacters[i].NavMeshAgent.radius - enemy.NavMeshAgent.radius);
+                Vector3 point = PlayerCharacters[i].transform.position + from_pc_to_enemy;
+
                 ApplyCharacterDestinations(PlayerCharacters[i], point);
                 PlayerCharacters[i].ChangeState(PlayerCharacters[i].Chase);
             }

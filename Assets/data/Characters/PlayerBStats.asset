@@ -11,16 +11,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe6089556867c24685a01cb0ddfb54e, type: 3}
   m_Name: PlayerBStats
   m_EditorClassIdentifier: 
-  Name: PlayerB
+  Name: PlayerA
+  Type: Player
+  EnemyTypes:
+  - Enemy
   Health:
-    Value: 0
-    MaxValue: 0
+    Value: 10
+    MaxValue: 10
     MinValue: 0
-  Skills: []
-  Equipment: []
+  Skills:
+  - Skill: {fileID: 11400000, guid: 77716457f5a29984bb27cbbfdee5754f, type: 2}
+    Value: 1
+  - Skill: {fileID: 11400000, guid: 1579f5a52bd84e54cb425b0991e4a8e1, type: 2}
+    Value: 2
+  Equipment:
+  - Name: Left Hand
+    Item: {fileID: 11400000, guid: 5b78b3e613f04f64a8e69ecb82502fd2, type: 2}
+  - Name: Right Hand
+    Item: {fileID: 11400000, guid: d971ddd5c6a7a7b4597853efc3342a81, type: 2}
   XP: 0
   SkillPoints: 0
-  Radius: 0
-  AlertnessRadius: 0
+  Radius: 0.5
+  AlertnessRadius: 5
+  Tags:
+  - Hero
+  Aspects: []
   ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
   SkillDatabase: {fileID: 11400000, guid: 0f5f22c54ca205d4caaf854a102c98df, type: 2}
+  AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}

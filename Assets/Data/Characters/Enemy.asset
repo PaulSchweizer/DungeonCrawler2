@@ -16,8 +16,8 @@ MonoBehaviour:
   EnemyTypes:
   - Player
   Health:
-    Value: 0
-    MaxValue: 0
+    Value: -1
+    MaxValue: 10
     MinValue: 0
   Skills: []
   Equipment: []
@@ -25,5 +25,9 @@ MonoBehaviour:
   SkillPoints: 0
   Radius: 0.5
   AlertnessRadius: 5
-  ItemDatabase: {fileID: 0}
-  SkillDatabase: {fileID: 0}
+  Tags:
+  - Enemy
+  Aspects: []
+  ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
+  SkillDatabase: {fileID: 11400000, guid: 0f5f22c54ca205d4caaf854a102c98df, type: 2}
+  AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}

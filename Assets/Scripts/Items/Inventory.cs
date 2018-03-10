@@ -81,10 +81,8 @@ public class Inventory : MonoBehaviour
         return thisInventory;
     }
 
-    // Json Schema:
-    // {
-    //    "Item1.Id": 100
-    // }
+    #region Serialization
+
     public Dictionary<string, int> SerializeToData()
     {
         Dictionary<string, int> data = new Dictionary<string, int>();
@@ -104,4 +102,6 @@ public class Inventory : MonoBehaviour
             AddItem(item, Convert.ToInt32(entry.Value));
         }
     }
+
+    #endregion
 }

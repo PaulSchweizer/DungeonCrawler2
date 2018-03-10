@@ -3,6 +3,7 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class InventoryTests
 {
@@ -71,7 +72,7 @@ public class InventoryTests
     {
         InventoryA.AddItem(TestItem, 10);
         string json = SerializationUtilitites.SerializeToJson(InventoryA.SerializeToData());
-        InventoryB.DeserializeFromData(SerializationUtilitites.DeserializeFromJson(json));
+        InventoryB.DeserializeFromData(SerializationUtilitites.DeserializeFromJson<Dictionary<string, object>>(json));
 
         Assert.AreEqual(InventoryA.Items.Count, InventoryB.Items.Count);
         for (int i = 0; i < InventoryA.Items.Count; i++)

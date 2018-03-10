@@ -4,5 +4,7 @@
 public class Weapon : Item
 {
     public int Damage;
-    public float Speed;
+    public float Speed; // AttacksPerSecond
+    public AttackShapeMarker[] AttackShape;
+    public Skill Skill;
 }

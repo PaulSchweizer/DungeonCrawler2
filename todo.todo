@@ -1,5 +1,4 @@
-- Game Logic ------------------------------------------
-
+Done ######################### :
  ✔ Test Testing @done (18-02-25 19:24)
  ✔ Test Json Serialization @done (18-03-03 16:02)
   ✔ Serialize Inventory @done (18-03-03 16:02)
@@ -25,39 +24,62 @@ Character:
   ✔ Skills @done (18-03-04 10:49)
    ✔ SkillDatabase @done (18-03-04 10:49)
   ✔ Equipment @done (18-03-04 10:49)
- ☐ Stats
   ✔ Skills @done (18-03-04 13:36)
-  ☐ Aspects
-  ☐ Stunts
  ✔ TestLevel @done (18-03-04 18:27)
  ✔ TestCharacter @done (18-03-04 22:46)
   ✔ StateMachine with Animation @done (18-03-04 22:46)
- ☐ Re-implement States
+ ✔ Equipment @done (18-03-10 12:05)
+  ✔ WeaponSlot @done (18-03-10 12:05)
+  ✔ ArmourSlots @done (18-03-10 12:05)
+ ✔ EquippedWeapon: Sword @done (18-03-10 12:05)
+ ✔ AttackSkill: "Depends on the Weapon @done (18-03-10 12:05)
+  ✔ Protection @done (18-03-10 12:05)
+  ✔ Attack @done (18-03-10 14:59)
+  ✔ Damage @done (18-03-10 14:53)
+  ✔ Defend @done (18-03-10 14:59)
+  ✔ ScheduleAttack @done (18-03-10 15:41)
+  ✘ Implement Radius in AttackShape calculation @cancelled (18-03-10 15:45)
+  ✔ TakenOut @done (18-03-10 16:07)
+ ✔ Re-implement States @done (18-03-10 16:07)
   ✔ IdleState @done (18-03-04 15:20)
   ✔ MoveState @done (18-03-04 15:20)
   ✔ ChaseState @done (18-03-04 22:46)
-   ☐ unify the rotate to target in states
+   ✘ unify the rotate to target in states @cancelled (18-03-10 15:45)
    ✔ Enemy @done (18-03-04 22:46)
-  ☐ AttackState
+  ✔ AttackState @done (18-03-10 15:45)
    ✔ AttackShape.PointInArea @done (18-03-05 23:16)
-   ☐ Implement Radius in AttackShape calculation
-   ☐ Re-implement combat
-    ☐ Attack
-    ☐ ScheduleAttack
-    ☐ Defend
-    ☐ Damage
-    ☐ Protection
-    ☐ TakenOut
-    ☐ Only Attack when the Player clicks
- ☐ GameMaster -> ScriptableObject, referenced by Character etc.
- ☐ Re-implement Rulebook.SynonymsOf(tag) as ScriptableObject tag database object
- ☐ ParseNameForTags()
- ☐ Serialize Tags and Aspects
- ☐ Consequences
- ☐ Equipment
- ☐ stunts
+    ✔ Only Attack when the Player clicks @done (18-03-10 15:45)
+ ✔ ReceiveXP @done (18-03-10 16:16)
+ ✔ Fix Serialization @done (18-03-10 22:49)
+  ✔ EnemyTypes @done (18-03-10 16:27)
+  ✔ Tags @done (18-03-10 16:31)
+  ✔ Aspects @done (18-03-10 16:31)
+ ✔ Fix Deserialization @done (18-03-10 22:49)
+  ✔ Add AspectDatabase @done (18-03-10 22:49)
+ ✔ Serialization Tests @done (18-03-10 22:49)
+ ✔ Serialize Tags and Aspects @done (18-03-10 22:49)
+ ✔ Aspects @done (18-03-10 22:50)
+ ✘ Re-implement Rulebook.SynonymsOf(tag) as ScriptableObject tag database object @cancelled (18-03-10 10:06)
+ ✘ Is DestinationRotation necessary? @cancelled (18-03-10 10:06)
+
+
+Doing ######################### :
+ ☐ Signals
+
+
+Backlog ####################### :
+ ☐ EnemyStates
+
  ☐ GameEventsLogger
- ☐ ReceiveXP
+
+ ☐ GameMaster -> ScriptableObject, referenced by Character etc.
+ ☐ ParseNameForTags()? -> Later
+ ☐ Consequences? -> Later
+ ☐ Stunts -> Later
+
+Character:
+ ☐ Stats
+  ☐ Stunts
 
 GlobalState:
  ☐ Variables

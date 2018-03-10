@@ -9,6 +9,7 @@ public class Item : ScriptableObject
 {
     public string Id;
     public string Name;
+    public Aspect[] Aspects;
 
     [JsonIgnore]
     public string Identifier

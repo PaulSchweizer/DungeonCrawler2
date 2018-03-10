@@ -3,11 +3,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public struct AttackShapeMarker
 {
     public Vector3 Position;
-    public int Radius;
+    public float Radius;
     public float Angle;
+
+    [HideInInspector]
+    public Vector3 Center;
+
+    [HideInInspector]
     public Vector3 Forward;
 
     public static AttackShapeMarker Default = new AttackShapeMarker(new Vector3(), 2, 45);
@@ -18,28 +24,30 @@ public struct AttackShapeMarker
         Radius = radius;
         Angle = angle;
         Forward = new Vector3(0, 0, 1);
+        Center = new Vector3(0, 0, 0);
     }
 
     /// <summary>
     /// Apply shape with the current Transform values.
     /// This occurs when the Attack has been scheduled.
     /// </summary>
-    public void Apply(Vector3 forward)
+    public void Apply(Transform transform)
     {
-        Forward = forward;
+        Center = transform.position + transform.TransformVector(Position);
+        Forward = transform.forward;
     }
 
     public float Area()
     {
-        return (float)(Math.PI * Radius * Radius * (Angle / 360f));
+        return Mathf.PI * Radius * Radius * (Angle / 360f);
     }
 
     public Vector3 StartVector
     {
         get
         {
-            float angle = 180 - (Angle * 0.5f) * Mathf.Rad2Deg;
-            return Position + Quaternion.AngleAxis(angle, Vector3.up) * Forward;
+            float angle = (Angle * 0.5f);
+            return Quaternion.AngleAxis(angle, Vector3.up) * Forward;
         }
     }
 
@@ -47,24 +55,22 @@ public struct AttackShapeMarker
     {
         get
         {
-            float angle = 180 - (Angle * 0.5f) * Mathf.Rad2Deg;
-            return Position + Quaternion.AngleAxis(-angle, Vector3.up) * Forward;
+            float angle = (Angle * 0.5f);
+            return Quaternion.AngleAxis(-angle, Vector3.up) * Forward;
         }
     }
 
     public bool PointInArea(Transform parent, Vector3 point)
     {
         // Check if in range
-        float distance = Vector3.Distance(parent.position, point);
+        float distance = Vector3.Distance(Center, point);
         if (distance > Radius)
         {
             return false;
         }
 
-        Apply(parent.forward); // TODO: Maybe remove later
-
         // Check if in circle sector
-        Vector3 vector = (point - parent.position + Position).normalized;
+        Vector3 vector = (point - Center).normalized;
         float angle = Vector3.Angle(Forward, vector);
         if (angle <= Angle * 0.5)
         {
@@ -159,7 +165,7 @@ public class BaseCharacter : MonoBehaviour
     public CharacterState Move = MoveState.Instance;
     public CharacterState Chase = ChaseState.Instance;
     public CharacterState Combat = CombatState.Instance;
-    //public CharacterState TakenOut = TakenOutState.Instance;
+    public CharacterState TakenOut = TakenOutState.Instance;
     //public CharacterState MoveToNPC = MoveToNPCState.Instance;
     //public CharacterState Conversation = ConversationState.Instance;
     protected CharacterState CurrentState;
@@ -205,85 +211,7 @@ public class BaseCharacter : MonoBehaviour
         return characters;
     }
 
-    #region Aspects and Skills
-
-    public int[] SkillValueModifiers(Skill skill, string[] tags)
-    {
-        List<int> modifiers = new List<int>();
-        foreach (Aspect aspect in AspectsAffectingSkill(skill))
-        {
-            if (aspect.Matches(tags) > 0)
-            {
-                modifiers.Add(aspect.Bonus);
-            }
-        }
-        return modifiers.ToArray();
-    }
-
-    public int SkillValue(Skill skill, string[] tags)
-    {
-        int value = Stats.SkillValue(skill);
-        int[] modifiers = SkillValueModifiers(skill, tags);
-        foreach (var item in modifiers)
-        {
-            value += item;
-        }
-        return value;
-    }
-
-    public Aspect[] AspectsAffectingSkill(Skill skill)
-    {
-        List<Aspect> aspects = new List<Aspect>();
-        foreach (Aspect aspect in AllAspects)
-        {
-            if (Array.Exists(aspect.Skills, element => element == skill))
-            {
-                aspects.Add(aspect);
-            }
-        }
-        return aspects.ToArray();
-    }
-
-    [JsonIgnore]
-    public List<Aspect> AllAspects
-    {
-        get
-        {
-            List<Aspect> aspects = new List<Aspect>();
-
-            // Basic Aspects
-            if (Stats.Aspects != null)
-            {
-                foreach (Aspect aspect in Stats.Aspects)
-                {
-                    aspects.Add(aspect);
-                }
-            }
-
-            //// Aspects of all taken Consequences
-            //foreach (Consequence consequence in AllConsequences)
-            //{
-            //    if (consequence.IsTaken)
-            //    {
-            //        aspects.Add(consequence.Effect);
-            //    }
-            //}
-
-            //// Aspects from the equipped Items
-            //foreach (string itemIdentifier in Equipment.Values)
-            //{
-            //    if (itemIdentifier != null)
-            //    {
-            //        foreach (Aspect aspect in Inventory.Item(itemIdentifier).Aspects)
-            //        {
-            //            aspects.Add(aspect);
-            //        }
-            //    }
-            //}
-
-            return aspects;
-        }
-    }
+    #region Equipment
 
     #endregion
 
@@ -293,20 +221,14 @@ public class BaseCharacter : MonoBehaviour
     {
         get
         {
+            if (Stats.EquipppedWeapon != null)
+            {
+                if (Stats.EquipppedWeapon.Skill != null)
+                {
+                    return Stats.EquipppedWeapon.Skill;
+                }
+            }
             return Stats.SkillDatabase.SkillByName("MeleeWeapons");
-        }
-    }
-
-    public int Damage
-    {
-        get
-        {
-            int damage = 0;
-            //foreach (Weapon weapon in Weapons)
-            //{
-            //    damage += weapon.Damage;
-            //}
-            return damage;
         }
     }
 
@@ -314,15 +236,14 @@ public class BaseCharacter : MonoBehaviour
     {
         get
         {
-            float speed = 0;
-            //foreach (Weapon weapon in Weapons)
-            //{
-            //    if (weapon.Speed > speed)
-            //    {
-            //        speed = weapon.Speed;
-            //    }
-            //}
-            return speed + 1;
+            if (Stats.EquipppedWeapon != null)
+            {
+                return Stats.EquipppedWeapon.Speed;
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 
@@ -331,16 +252,13 @@ public class BaseCharacter : MonoBehaviour
         get
         {
             List<AttackShapeMarker> attackShape = new List<AttackShapeMarker>();
-            //
-            // TODO: Implement Weapons
-            //
-            //foreach (Weapon weapon in Weapons)
-            //{
-            //    foreach (AttackShapeMarker shape in weapon.AttackShape)
-            //    {
-            //        attackShape.Add(shape);
-            //    }
-            //}
+            if (Stats.EquipppedWeapon != null)
+            {
+                foreach (AttackShapeMarker shape in Stats.EquipppedWeapon.AttackShape)
+                {
+                    attackShape.Add(shape);
+                }
+            }
             if (attackShape.Count == 0)
             {
                 attackShape.Add(AttackShapeMarker.Default);
@@ -356,7 +274,7 @@ public class BaseCharacter : MonoBehaviour
         {
             foreach (AttackShapeMarker shape in AttackShape)
             {
-                shape.Apply(transform.forward);
+                shape.Apply(transform);
                 if (shape.PointInArea(transform, enemy.transform.position))
                 {
                     characters.Add(enemy);
@@ -374,14 +292,12 @@ public class BaseCharacter : MonoBehaviour
             return;
         }
         float speed = 1 / AttackSpeed;
-        Debug.Log(attackSkill);
         ScheduledAttack.Start(AttackShape, attackSkill, speed * 0.5f, speed * 0.5f);
         //OnAttackScheduled?.Invoke(this, null);
     }
 
     public void Attack(BaseCharacter defender, Skill attackSkill)
     {
-        Debug.Log(attackSkill);
         //GameEventsLogger.LogSeparator("Attack");
         List<string> tags = new List<string>();
         for (int i = 0; i < defender.Stats.Tags.Count; i++)
@@ -398,7 +314,7 @@ public class BaseCharacter : MonoBehaviour
         //        tags.Add(GameMaster.CurrentTags[i]);
         //    }
         //}
-        int skillValue = SkillValue(attackSkill, tags.ToArray());
+        int skillValue = Stats.SkillValue(attackSkill, tags.ToArray());
         int diceValue = Dice.Roll();
         int totalValue = skillValue + diceValue;
         //if (stunt != null)
@@ -416,11 +332,11 @@ public class BaseCharacter : MonoBehaviour
         int shifts = defender.Defend(this, attackSkill, totalValue);
         if (shifts > 0)
         {
-            defender.ReceiveDamage(shifts + Damage);
-            //if (defender.IsTakenOut)
-            //{
-            //    ReceiveXP(defender.Cost);
-            //}
+            bool isTakenOut = defender.ReceiveDamage(shifts + Stats.Damage);
+            if (isTakenOut)
+            {
+                Stats.ReceiveXP(defender.Stats.Cost);
+            }
         }
     }
 
@@ -447,7 +363,7 @@ public class BaseCharacter : MonoBehaviour
         Skill defendSkill = null;
         foreach (Skill skill in attackSkill.OpposingSkills)
         {
-            int skillValue = SkillValue(skill, tags.ToArray());
+            int skillValue = Stats.SkillValue(skill, tags.ToArray());
             if (skillValue >= defendValue)
             {
                 defendValue = skillValue;
@@ -468,30 +384,25 @@ public class BaseCharacter : MonoBehaviour
         return shifts;
     }
 
-    [JsonIgnore]
-    public int Protection
+    public bool ReceiveDamage(int damage)
     {
-        get
-        {
-            int protection = 0;
-            //foreach (string itemName in Equipment.Values)
-            //{
-            //    Item item = Inventory.Item(itemName);
-            //    if (item is Armour)
-            //    {
-            //        Armour armour = item as Armour;
-            //        protection += armour.Protection;
-            //    }
-            //}
-            return protection;
-        }
-    }
-
-    public void ReceiveDamage(int damage)
-    {
-        damage = Math.Max(damage - Protection, 0);
+        damage = Math.Max(damage - Stats.Protection, 0);
         Stats.Health.Value -= damage;
         //OnPhysicalStressChanged?.Invoke(this, null);
+        if (Stats.Health.Value <= Stats.Health.MinValue)
+        {
+            GetsTakenOut();
+            return true;
+        }
+        return false;
+    }
+
+    public void GetsTakenOut()
+    {
+        ChangeState(TakenOut);
+        //IsTakenOut = true;
+        //GameEventsLogger.LogGetsTakenOut(this);
+        //OnTakenOut?.Invoke(this, null);
     }
 
     #endregion
@@ -536,8 +447,8 @@ public class BaseCharacter : MonoBehaviour
     public void DeserializeFromJson(string json)
     {
         Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-        Stats.DeserializeFromData(SerializationUtilitites.DeserializeFromObject(data["Stats"]));
-        Inventory.DeserializeFromData(SerializationUtilitites.DeserializeFromObject(data["Inventory"]));
+        Stats.DeserializeFromData(SerializationUtilitites.DeserializeFromObject<Dictionary<string, object>>(data["Stats"]));
+        Inventory.DeserializeFromData(SerializationUtilitites.DeserializeFromObject<Dictionary<string, object>>(data["Inventory"]));
 
         float[] transformData = JsonConvert.DeserializeObject<float[]>(JsonConvert.SerializeObject(data["Transform"]));
         transform.position = new Vector3(transformData[0], transformData[1], transformData[2]);
@@ -567,7 +478,10 @@ public class BaseCharacter : MonoBehaviour
             Gizmos.color = Color.red;
             foreach (AttackShapeMarker shape in AttackShape)
             {
-                shape.Apply(transform.forward);
+                //shape.Apply(transform.forward);
+
+                shape.Apply(transform);
+
                 center = transform.position + transform.TransformVector(shape.Position);
                 size = new Vector3(1, 0.01f, 1);
                 DebugExtension.DebugCircle(center, Gizmos.color, shape.Radius);

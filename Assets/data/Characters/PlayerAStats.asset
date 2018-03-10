@@ -33,5 +33,10 @@ MonoBehaviour:
   SkillPoints: 0
   Radius: 0.5
   AlertnessRadius: 5
+  Tags:
+  - Hero
+  Aspects:
+  - {fileID: 11400000, guid: 7ba6189c95856f34b96c5ab3ffe1ef7d, type: 2}
   ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
   SkillDatabase: {fileID: 11400000, guid: 0f5f22c54ca205d4caaf854a102c98df, type: 2}
+  AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}

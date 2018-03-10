@@ -8,12 +8,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7576f5773e86540afe8ba372136882, type: 3}
-  m_Name: Athletics
+  m_Script: {fileID: 11500000, guid: 68c7978b5e6646f4290378983d25ecdf, type: 3}
+  m_Name: GoodAgainstEnemies
   m_EditorClassIdentifier: 
-  Name: Athletics
-  Description: Avoid danger!
-  OpposingSkills:
+  Name: GoodAgainstEnemies
+  Bonus: 1
+  Tags:
+  - Enemy
+  Skills:
   - {fileID: 11400000, guid: 1579f5a52bd84e54cb425b0991e4a8e1, type: 2}
-  Actions:
-  - Defend

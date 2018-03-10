@@ -66,18 +66,209 @@ public class Stats : ScriptableObject
     [Header("References")]
     public ItemDatabase ItemDatabase;
     public SkillDatabase SkillDatabase;
+    public AspectDatabase AspectDatabase;
 
-    public int SkillValue(Skill skill)
+    // Internals
+    private List<Armour> _equippedArmour = new List<Armour>();
+
+    #region Aspects and Skills
+
+    public int SkillValueModifiers(Skill skill, string[] tags)
     {
-        for(int i = 0; i < Skills.Length; i++)
+        int modifiers = 0;
+        foreach (Aspect aspect in AspectsAffectingSkill(skill))
+        {
+            if (aspect.Matches(tags) > 0)
+            {
+                modifiers += aspect.Bonus;
+            }
+        }
+        return modifiers;
+    }
+
+    public int SkillValue(Skill skill, string[] tags)
+    {
+        int value = 0;
+        for (int i = 0; i < Skills.Length; i++)
         {
             if (Skills[i].Skill == skill)
             {
-                return Skills[i].Value;
+                value = Skills[i].Value;
+                break;
             }
         }
-        return 0;
+        value += SkillValueModifiers(skill, tags);
+        return value;
     }
+
+    public List<Aspect> AspectsAffectingSkill(Skill skill)
+    {
+        List<Aspect> aspects = new List<Aspect>();
+        foreach (Aspect aspect in AllAspects)
+        {
+            if (Array.Exists(aspect.Skills, element => element == skill))
+            {
+                aspects.Add(aspect);
+            }
+        }
+        return aspects;
+    }
+
+    public List<Aspect> AllAspects
+    {
+        get
+        {
+            List<Aspect> aspects = new List<Aspect>();
+
+            // Basic Aspects
+            if (Aspects != null)
+            {
+                foreach (Aspect aspect in Aspects)
+                {
+                    aspects.Add(aspect);
+                }
+            }
+
+            // Aspects of all taken Consequences
+            //foreach (Consequence consequence in AllConsequences)
+            //{
+            //    if (consequence.IsTaken)
+            //    {
+            //        aspects.Add(consequence.Effect);
+            //    }
+            //}
+
+            // Aspects from the equipped Items
+            foreach(EquipmentSlot slot in Equipment)
+            {
+                if (slot.Item != null)
+                {
+                    foreach (Aspect aspect in slot.Item.Aspects)
+                    {
+                        aspects.Add(aspect);
+                    }
+                }
+            }
+
+            return aspects;
+        }
+    }
+
+    #endregion
+
+    #region XP & Level
+
+    public int Cost
+    {
+        get
+        {
+            int cost = 0;
+            foreach (SkillSlot slot in Skills)
+            {
+                cost += slot.Value;
+            }
+            //foreach (Consequence consequence in AllConsequences)
+            //{
+            //    cost += consequence.Capacity;
+            //}
+            cost += Protection;
+            cost += Damage;
+            cost += Health.MaxValue;
+            return cost;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return (int)Math.Sqrt(XP / 100);
+        }
+    }
+
+    public void ReceiveXP(int xp)
+    {
+        //GameEventsLogger.LogReceivesXP(this, xp);
+        int previousLevel = Level;
+        XP += xp;
+        if (previousLevel < Level)
+        {
+            NextLevelReached();
+        }
+    }
+
+    public void NextLevelReached()
+    {
+        //GameEventsLogger.LogReachesNextLevel(this);
+        SkillPoints += 1;
+    }
+
+    #endregion
+
+    #region Equipment
+
+    public Weapon EquipppedWeapon
+    {
+        get
+        {
+            foreach(EquipmentSlot slot in Equipment)
+            {
+                if(slot.Item is Weapon)
+                {
+                    return slot.Item as Weapon;
+                }
+            }
+            return null;
+        }
+    }
+
+    public List<Armour> EquipppedArmour
+    {
+        get
+        {
+            _equippedArmour.Clear();
+            foreach (EquipmentSlot slot in Equipment)
+            {
+                if (slot.Item is Armour)
+                {
+                    _equippedArmour.Add(slot.Item as Armour);
+                }
+            }
+            return _equippedArmour;
+        }
+    }
+
+    #endregion
+
+    #region Attributes
+
+    public int Damage
+    {
+        get
+        {
+            int damage = 0;
+            if (EquipppedWeapon != null)
+            {
+                damage += EquipppedWeapon.Damage;
+            }
+            return damage;
+        }
+    }
+
+    public int Protection
+    {
+        get
+        {
+            int protection = 0;
+            foreach (Armour armour in EquipppedArmour)
+            {
+                protection += armour.Protection;
+            }
+            return protection;
+        }
+    }
+
+    #endregion
 
     #region Serialization
 
@@ -85,10 +276,11 @@ public class Stats : ScriptableObject
     {
         Dictionary<string, object> data = new Dictionary<string, object>();
 
-        // Attributes
+        // Simple Attributes
         data["Name"] = Name;
         data["Health"] = Health;
         data["Type"] = Type;
+        data["EnemyTypes"] = EnemyTypes;
 
         // Skills
         Dictionary<string, int> skills = new Dictionary<string, int>();
@@ -106,6 +298,15 @@ public class Stats : ScriptableObject
         }
         data["Equipment"] = equipment;
 
+        // Aspects and Tags
+        data["Tags"] = Tags;
+        List<string> aspects = new List<string>();
+        foreach (Aspect aspect in Aspects)
+        {
+            aspects.Add(aspect.Name);
+        }
+        data["Aspects"] = aspects;
+
         // Other data
         data["XP"] = XP;
         data["SkillPoints"] = SkillPoints;
@@ -120,22 +321,31 @@ public class Stats : ScriptableObject
         // Attributes
         Name = Convert.ToString(data["Name"]);
         Type = Convert.ToString(data["Type"]);
-        Health.DeserializeFromData(SerializationUtilitites.DeserializeFromObject(data["Health"]));
+        Health.DeserializeFromData(SerializationUtilitites.DeserializeFromObject<Dictionary<string, object>>(data["Health"]));
+        EnemyTypes = SerializationUtilitites.DeserializeFromObject<string[]>(data["EnemyTypes"]);
 
         List<SkillSlot> skills = new List<SkillSlot>();
-        foreach (KeyValuePair<string, object> entry in SerializationUtilitites.DeserializeFromObject(data["Skills"]))
+        foreach (KeyValuePair<string, int> entry in SerializationUtilitites.DeserializeFromObject<Dictionary<string, int>>(data["Skills"]))
         {
-            skills.Add(new SkillSlot(SkillDatabase.SkillByName(entry.Key), Convert.ToInt32(entry.Value)));
+            skills.Add(new SkillSlot(SkillDatabase.SkillByName(entry.Key), entry.Value));
         }
         Skills = skills.ToArray();
 
         // Equipment
         List<EquipmentSlot> equipment = new List<EquipmentSlot>();
-        foreach (KeyValuePair<string, object> entry in SerializationUtilitites.DeserializeFromObject(data["Equipment"]))
+        foreach (KeyValuePair<string, object> entry in SerializationUtilitites.DeserializeFromObject<Dictionary<string, object>>(data["Equipment"]))
         {
             equipment.Add(new EquipmentSlot(entry.Key, ItemDatabase.ItemByIdentifier(Convert.ToString(entry.Value))));
         }
         Equipment = equipment.ToArray();
+
+        // Aspects and Tags
+        Tags = SerializationUtilitites.DeserializeFromObject<List<string>>(data["Tags"]);
+        Aspects = new List<Aspect>();
+        foreach (string name in SerializationUtilitites.DeserializeFromObject<string[]>(data["Aspects"]))
+        {
+            Aspects.Add(AspectDatabase.AspectByName(name));
+        }
 
         // Other data
         XP = Convert.ToInt32(data["XP"]);

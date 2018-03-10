@@ -8,12 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7576f5773e86540afe8ba372136882, type: 3}
-  m_Name: Athletics
+  m_Script: {fileID: 11500000, guid: 9a15efa35c7266a47922777bdbdf6fb0, type: 3}
+  m_Name: AspectDatabase
   m_EditorClassIdentifier: 
-  Name: Athletics
-  Description: Avoid danger!
-  OpposingSkills:
-  - {fileID: 11400000, guid: 1579f5a52bd84e54cb425b0991e4a8e1, type: 2}
-  Actions:
-  - Defend
+  Aspects:
+  - {fileID: 11400000, guid: 7ba6189c95856f34b96c5ab3ffe1ef7d, type: 2}

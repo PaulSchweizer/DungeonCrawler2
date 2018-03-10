@@ -22,5 +22,3 @@ public class SkillDatabase : ScriptableObject
         return null;
     }
 }
-
-
