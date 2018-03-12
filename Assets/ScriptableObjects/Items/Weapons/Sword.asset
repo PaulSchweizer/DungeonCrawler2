@@ -13,13 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1
   Name: Sword
+  Sprite: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
   Aspects:
   - {fileID: 11400000, guid: 7ba6189c95856f34b96c5ab3ffe1ef7d, type: 2}
   Damage: 1
   Speed: 1
   AttackShape:
   - Position: {x: 0, y: 0, z: 0}
-    Radius: 2
+    Radius: 3
     Angle: 90
     Center: {x: 0, y: 0, z: 0}
     Forward: {x: 0, y: 0, z: 0}

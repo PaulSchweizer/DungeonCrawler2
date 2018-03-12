@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("References")]
-    public PlayerCharacter[] PlayerCharacters;
+    public CharacterSet PlayerCharacters;
 
     private bool _pointerIsDown;
 
@@ -57,29 +57,30 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private void HitNavigation(RaycastHit hit)
     {
-        for (int i = 0; i < PlayerCharacters.Length; i++)
+        for (int i = 0; i < PlayerCharacters.Items.Count; i++)
         {
-            ApplyCharacterDestinations(PlayerCharacters[i], hit.point);
-            PlayerCharacters[i].ChangeState(PlayerCharacters[i].Move);
+            ApplyCharacterDestinations(PlayerCharacters.Items[i], hit.point);
+            PlayerCharacters.Items[i].ChangeState(PlayerCharacters.Items[i].Move);
         }
     }
 
     private void HitEnemy(RaycastHit hit)
     {
         BaseCharacter enemy = hit.transform.GetComponent<BaseCharacter>();
-        //Vector3 point = enemy.transform.position;
-        for (int i = 0; i < PlayerCharacters.Length; i++)
+        Vector3 point = enemy.transform.position;
+        for (int i = 0; i < PlayerCharacters.Items.Count; i++)
         {
-            if (!PlayerCharacters[i].ScheduledAttack.IsActive)
+            if (!PlayerCharacters.Items[i].ScheduledAttack.IsActive)
             {
-                Vector3 from_pc_to_enemy = enemy.transform.position - PlayerCharacters[i].transform.position;
+                PlayerCharacters.Items[i].MarkedEnemy = enemy;
+                Vector3 from_pc_to_enemy = enemy.transform.position - PlayerCharacters.Items[i].transform.position;
                 float mag = from_pc_to_enemy.magnitude;
                 from_pc_to_enemy.Normalize();
-                from_pc_to_enemy = from_pc_to_enemy * (mag - PlayerCharacters[i].NavMeshAgent.radius - enemy.NavMeshAgent.radius);
-                Vector3 point = PlayerCharacters[i].transform.position + from_pc_to_enemy;
+                from_pc_to_enemy = from_pc_to_enemy * (mag - PlayerCharacters.Items[i].NavMeshAgent.radius - enemy.NavMeshAgent.radius);
+                //Vector3 point = PlayerCharacters.Items[i].transform.position + from_pc_to_enemy;
 
-                ApplyCharacterDestinations(PlayerCharacters[i], point);
-                PlayerCharacters[i].ChangeState(PlayerCharacters[i].Chase);
+                ApplyCharacterDestinations(PlayerCharacters.Items[i], point);
+                PlayerCharacters.Items[i].ChangeState(PlayerCharacters.Items[i].Chase);
             }
         }
     }
@@ -96,7 +97,7 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         //}
     }
 
-    private void ApplyCharacterDestinations(PlayerCharacter character, Vector3 position)
+    private void ApplyCharacterDestinations(BaseCharacter character, Vector3 position)
     {
         if (!character.NavMeshAgent.isOnNavMesh)
         {

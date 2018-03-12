@@ -173,18 +173,22 @@ public class BaseCharacter : MonoBehaviour
     // Logic
     public AttackMarker ScheduledAttack;
     public int Spin;
+    public BaseCharacter MarkedEnemy;
 
     // Internals
     [HideInInspector]
     public Vector3 DestinationRotation = new Vector3();
-    public static List<BaseCharacter> Characters = new List<BaseCharacter>();
 
     public virtual void Awake()
     {
         NavMeshAgent.radius = Stats.Radius;
         CurrentState = Idle;
-        Characters.Add(this);
         ScheduledAttack = new AttackMarker(this);
+    }
+
+    private void OnEnable()
+    {
+        Stats.CharacterSet.Add(this);
     }
 
     private void Start()
@@ -198,17 +202,9 @@ public class BaseCharacter : MonoBehaviour
         CurrentState.Update(this);
     }
 
-    public static List<BaseCharacter> CharactersOfType(string[] types)
+    private void OnDisable()
     {
-        List<BaseCharacter> characters = new List<BaseCharacter>();
-        foreach (BaseCharacter character in Characters)
-        {
-            if (Array.Exists(types, element => element == character.Stats.Type))
-            {
-                characters.Add(character);
-            }
-        }
-        return characters;
+        Stats.CharacterSet.Remove(this);
     }
 
     #region Equipment
@@ -270,14 +266,14 @@ public class BaseCharacter : MonoBehaviour
     public List<BaseCharacter> EnemiesInAttackShape()
     {
         List<BaseCharacter> characters = new List<BaseCharacter>();
-        foreach (BaseCharacter enemy in CharactersOfType(Stats.EnemyTypes))
+        for (int i = Stats.EnemySet.Items.Count - 1; i >= 0; i--)
         {
             foreach (AttackShapeMarker shape in AttackShape)
             {
                 shape.Apply(transform);
-                if (shape.PointInArea(transform, enemy.transform.position))
+                if (shape.PointInArea(transform, Stats.EnemySet.Items[i].transform.position))
                 {
-                    characters.Add(enemy);
+                    characters.Add(Stats.EnemySet.Items[i]);
                     break;
                 }
             }
@@ -426,7 +422,6 @@ public class BaseCharacter : MonoBehaviour
         Vector3 characterPos = new Vector3(transform.position.x, position.y, transform.position.z);
         Vector3 rotation = Vector3.RotateTowards(forward, position - characterPos, 2 * Mathf.PI, 1);
         DestinationRotation.Set(rotation.x, rotation.y, rotation.z);
-
     }
 
     #endregion

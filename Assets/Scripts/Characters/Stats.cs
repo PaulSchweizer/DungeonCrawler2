@@ -67,6 +67,8 @@ public class Stats : ScriptableObject
     public ItemDatabase ItemDatabase;
     public SkillDatabase SkillDatabase;
     public AspectDatabase AspectDatabase;
+    public CharacterSet CharacterSet;
+    public CharacterSet EnemySet;
 
     // Internals
     private List<Armour> _equippedArmour = new List<Armour>();

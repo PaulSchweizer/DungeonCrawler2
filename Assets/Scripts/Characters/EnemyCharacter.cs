@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemyCharacter : BaseCharacter
 {
+
     public override void Awake()
     {
-        //Idle = EnemyIdleState.Instance;
-        //Chase = EnemyChaseState.Instance;
+        Idle = EnemyIdleState.Instance;
+        Chase = EnemyChaseState.Instance;
         base.Awake();
     }
 
@@ -19,10 +20,9 @@ public class EnemyCharacter : BaseCharacter
         if (UnityEditor.EditorApplication.isPlaying)
         {
             Color oldColor = Gizmos.color;
-
-            foreach(BaseCharacter player in BaseCharacter.CharactersOfType(Stats.EnemyTypes))
+            for (int i = Stats.EnemySet.Items.Count - 1; i >= 0; i--)
             {
-                if (player.EnemiesInAttackShape().Contains(this))
+                if (Stats.EnemySet.Items[i].EnemiesInAttackShape().Contains(this))
                 {
                     Gizmos.color = DebugColor;
                     Gizmos.DrawSphere(transform.position, 1);

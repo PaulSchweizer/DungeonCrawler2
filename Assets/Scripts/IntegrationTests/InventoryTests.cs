@@ -37,7 +37,7 @@ public class InventoryTests
     {
         InventoryA.AddItem(TestItem, 10);
 
-        Assert.AreEqual(1, InventoryA.Items.Count);
+        Assert.AreEqual(1, InventoryA.Entries.Count);
         Assert.AreEqual(10, InventoryA.Amount(TestItem));
 
         InventoryA.RemoveItem(TestItem);
@@ -54,9 +54,9 @@ public class InventoryTests
 
         InventoryB += InventoryA;
 
-        Assert.AreEqual(1, InventoryB.Items.Count);
+        Assert.AreEqual(1, InventoryB.Entries.Count);
         Assert.AreEqual(10, InventoryB.Amount(TestItem));
-        Assert.AreEqual(0, InventoryA.Items.Count);
+        Assert.AreEqual(0, InventoryA.Entries.Count);
     }
 
     [Test]
@@ -74,12 +74,12 @@ public class InventoryTests
         string json = SerializationUtilitites.SerializeToJson(InventoryA.SerializeToData());
         InventoryB.DeserializeFromData(SerializationUtilitites.DeserializeFromJson<Dictionary<string, object>>(json));
 
-        Assert.AreEqual(InventoryA.Items.Count, InventoryB.Items.Count);
-        for (int i = 0; i < InventoryA.Items.Count; i++)
+        Assert.AreEqual(InventoryA.Entries.Count, InventoryB.Entries.Count);
+        for (int i = 0; i < InventoryA.Entries.Count; i++)
         {
-            Assert.AreEqual(InventoryA.Items[i].Amount, InventoryB.Items[i].Amount);
-            Assert.AreSame(InventoryA.Items[i].Item, InventoryB.Items[i].Item);
-            Assert.AreSame(Database.ItemByIdentifier<Item>(InventoryA.Items[i].Item.Identifier), InventoryB.Items[i].Item);
+            Assert.AreEqual(InventoryA.Entries[i].Amount, InventoryB.Entries[i].Amount);
+            Assert.AreSame(InventoryA.Entries[i].Item, InventoryB.Entries[i].Item);
+            Assert.AreSame(Database.ItemByIdentifier<Item>(InventoryA.Entries[i].Item.Identifier), InventoryB.Entries[i].Item);
         }
     }
 }

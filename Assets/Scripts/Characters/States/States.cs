@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public abstract class CharacterState
 {
@@ -106,15 +102,19 @@ public class ChaseState : CharacterState
     public override void Update(BaseCharacter character)
     {
         SetSpeed(character);
-        if (character.NavMeshAgent.remainingDistance <= character.NavMeshAgent.stoppingDistance + character.Stats.Radius * 2)
+
+        if (character.EnemiesInAttackShape().Contains(character.MarkedEnemy))
+        {
+            character.ChangeState(character.Combat);
+            return;
+        }
+
+        float stoppingDistance = character.NavMeshAgent.stoppingDistance + character.Stats.Radius * 2;
+        if (character.NavMeshAgent.remainingDistance <= stoppingDistance)
         {
             if (Vector3.Angle(character.transform.forward, character.DestinationRotation) < RotationThreshold)
             {
-                if (character.EnemiesInAttackShape().Count > 0)
-                {
-                    character.ChangeState(character.Combat);
-                    return;
-                }
+                character.MarkedEnemy = null;
                 character.ChangeState(character.Idle);
             }
             else
@@ -156,7 +156,6 @@ public class CombatState : CharacterState
             character.ScheduledAttack.CurrentTime += Time.deltaTime;
             //character.AttackSlider.value = character.Data.ScheduledAttack.CurrentTime;
             DebugColor = Color.red;
-            Debug.Log(character.ScheduledAttack.Progress());
             if (character.ScheduledAttack.Progress() >= 0.5 && !character.ScheduledAttack.HitOccurred)
             {
                 character.ScheduledAttack.Hit();
@@ -177,6 +176,7 @@ public class CombatState : CharacterState
     public override void Exit(BaseCharacter character)
     {
         character.ScheduledAttack.Stop();
+        character.MarkedEnemy = null;
         //character.AttackSlider.value = 0;
     }
 }
@@ -195,7 +195,7 @@ public class TakenOutState : CharacterState
         character.Animator.SetInteger("State", 4);
         character.NavMeshAgent.enabled = false;
         //character.DropLoot();
-        BaseCharacter.Characters.Remove(character);
+        character.Stats.CharacterSet.Remove(character);
         character.tag = "Untagged";
     }
 

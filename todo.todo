@@ -61,16 +61,41 @@ Character:
  ✔ Aspects @done (18-03-10 22:50)
  ✘ Re-implement Rulebook.SynonymsOf(tag) as ScriptableObject tag database object @cancelled (18-03-10 10:06)
  ✘ Is DestinationRotation necessary? @cancelled (18-03-10 10:06)
-
+ ✔ Signals @done (18-03-11 17:14)
+ ✔ Create EditorScript for the GameEvent @done (18-03-11 17:14)
+ ✔ Is the list of Characters on BaseCharacter necessary? @done (18-03-11 18:30)
+ ✔ Create RuntimeList for Players @done (18-03-11 18:30)
+ ✔ Create RuntimeList for Enemies @done (18-03-11 18:30)
+ ✔ EnemyStates @done (18-03-11 19:47)
+  ✔ Idle @done (18-03-11 19:47)
+  ✔ Chase @done (18-03-11 19:47)
+ ✔ MarkedEnemy @done (18-03-11 20:38)
+ ✔ Pushing of Characters on NavMesh? @done (18-03-11 20:38)
+ ✔ Copy UIs from First Project @done (18-03-12 21:03)
+ ✔ SlotView @done (18-03-12 22:32)
+ ✔ Slot @done (18-03-12 22:32)
+ ✔ SlottableItem @done (18-03-12 22:33)
+ ✔ Inventory : SlotView @done (18-03-12 22:33)
 
 Doing ######################### :
- ☐ Signals
+
+
+ ☐ GameController
+  ☐ New Game
+  ☐ SwitchLevel
+
 
 
 Backlog ####################### :
- ☐ EnemyStates
-
  ☐ GameEventsLogger
+  ☐ Use Unity Event Logger
+
+
+ ☐ States as ScriptableObjects?
+
+ ☐ Remove EnemyTypes from the Characters
+ ☐ If Enemy of Player already in range and attackable, directly switch to AttackState
+
 
  ☐ GameMaster -> ScriptableObject, referenced by Character etc.
  ☐ ParseNameForTags()? -> Later

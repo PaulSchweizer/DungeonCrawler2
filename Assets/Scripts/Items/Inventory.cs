@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class InventoryEntry
@@ -20,34 +21,35 @@ public class InventoryEntry
     }
 }
 
-public class Inventory : MonoBehaviour
+[CreateAssetMenu(fileName = "Inventory", menuName = "DungeonCrawler/Inventory")]
+public class Inventory : ScriptableObject
 {
     public ItemDatabase ItemDatabase;
-    public List<InventoryEntry> Items = new List<InventoryEntry>();
+    public List<InventoryEntry> Entries = new List<InventoryEntry>();
 
     public void AddItem(Item item, int amount = 1)
     {
-        for(int i = 0; i < Items.Count; i++)
+        for(int i = 0; i < Entries.Count; i++)
         {
-            if (Items[i].Item.Id == item.Id)
+            if (Entries[i].Item.Id == item.Id)
             {
-                Items[i].Amount += amount;
+                Entries[i].Amount += amount;
                 return;
             }
         }
-        Items.Add(new InventoryEntry(item, amount));
+        Entries.Add(new InventoryEntry(item, amount));
     }
 
     public void RemoveItem(Item item, int amount = 1)
     {
-        for (int i = Items.Count - 1; i >= 0; i--)
+        for (int i = Entries.Count - 1; i >= 0; i--)
         {
-            if (Items[i].Item.Id == item.Id)
+            if (Entries[i].Item.Id == item.Id)
             {
-                Items[i].Amount -= amount;
-                if (Items[i].Amount <= 0)
+                Entries[i].Amount -= amount;
+                if (Entries[i].Amount <= 0)
                 {
-                    Items.Remove(Items[i]);
+                    Entries.Remove(Entries[i]);
                 }
                 return;
             }
@@ -56,11 +58,11 @@ public class Inventory : MonoBehaviour
 
     public int Amount(Item item)
     {
-        for (int i = 0; i < Items.Count; i++)
+        for (int i = 0; i < Entries.Count; i++)
         {
-            if (Items[i].Item.Id == item.Id)
+            if (Entries[i].Item.Id == item.Id)
             {
-                return Items[i].Amount;
+                return Entries[i].Amount;
             }
         }
         return 0;
@@ -68,12 +70,12 @@ public class Inventory : MonoBehaviour
 
     public void Clear()
     {
-        Items.Clear();
+        Entries.Clear();
     }
 
     public static Inventory operator +(Inventory thisInventory, Inventory thatInventory)
     {
-        foreach (InventoryEntry entry in thatInventory.Items)
+        foreach (InventoryEntry entry in thatInventory.Entries)
         {
             thisInventory.AddItem(entry.Item, thatInventory.Amount(entry.Item));
         }
@@ -86,9 +88,9 @@ public class Inventory : MonoBehaviour
     public Dictionary<string, int> SerializeToData()
     {
         Dictionary<string, int> data = new Dictionary<string, int>();
-        for (int i = 0; i < Items.Count; i++)
+        for (int i = 0; i < Entries.Count; i++)
         {
-            data[Items[i].Item.Identifier] = Items[i].Amount;
+            data[Entries[i].Item.Identifier] = Entries[i].Amount;
         }
         return data;
     }
@@ -102,6 +104,11 @@ public class Inventory : MonoBehaviour
             AddItem(item, Convert.ToInt32(entry.Value));
         }
     }
+
+    #endregion
+
+    #region Events
+
 
     #endregion
 }
