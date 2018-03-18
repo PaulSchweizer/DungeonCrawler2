@@ -76,17 +76,33 @@ Character:
  ✔ Slot @done (18-03-12 22:32)
  ✔ SlottableItem @done (18-03-12 22:33)
  ✔ Inventory : SlotView @done (18-03-12 22:33)
+ ✔ Inventory @done (18-03-18 13:57)
+  ✔ Signal from Inventory to UI @done (18-03-18 13:32)
+  ✘ Signal from UI to Inventory @cancelled (18-03-18 13:56)
 
 Doing ######################### :
+ ✔ InventoryUI @done (18-03-18 15:57)
+ ✔ Loot @done (18-03-18 16:16)
+  ✔ PickUp Loot @done (18-03-18 16:16)
+ ☐ UI - PlayerUI
+  ✔ Show with global event @done (18-03-18 16:45)
+  ☐ Inventory
+  ☐ Equipment
+  ☐ StatsView
+ ☐ UI - Event Information
 
+Backlog ####################### :
+
+ ☐ Fix serialization
+
+ ☐ Way to reset the PlayerUI and data on each load
+  ☐ Load from json?
 
  ☐ GameController
   ☐ New Game
   ☐ SwitchLevel
 
 
-
-Backlog ####################### :
  ☐ GameEventsLogger
   ☐ Use Unity Event Logger
 

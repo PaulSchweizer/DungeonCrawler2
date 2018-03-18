@@ -44,8 +44,8 @@ namespace SlotSystem
 
         public void Swap(SlottableItem item)
         {
-            var currentItem = Item;
-            var draggedItem = item;
+            SlottableItem currentItem = Item;
+            SlottableItem draggedItem = item;
             if (draggedItem == null || currentItem == draggedItem)
             {
                 return;
@@ -70,8 +70,8 @@ namespace SlotSystem
 
         public void Drop(SlottableItem item)
         {
-            var oldItem = Item;
-            var newItem = item;
+            SlottableItem oldItem = Item;
+            SlottableItem newItem = item;
             item.transform.SetParent(transform);
             item.FitIntoSlot();
             ExecuteEvents.ExecuteHierarchy<ISlotChanged>(gameObject, null, (x, y) => x.SlotChanged(this, newItem, oldItem));
@@ -81,7 +81,7 @@ namespace SlotSystem
 
         public void Clear()
         {
-            var oldItem = Item;
+            SlottableItem oldItem = Item;
             Item = null;
             ExecuteEvents.ExecuteHierarchy<ISlotChanged>(gameObject, null, (x, y) => x.SlotChanged(this, null, oldItem));
         }

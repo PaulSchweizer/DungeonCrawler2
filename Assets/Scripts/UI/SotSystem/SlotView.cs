@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace SlotSystem
 {
-    public class SlotView : MonoBehaviour, ISlotChanged
+    public class SlotView : MonoBehaviour
     {
         [Header("Settings")]
         public int NumberOfSlots;
@@ -39,15 +40,15 @@ namespace SlotSystem
             }
         }
 
-        public void RemoveItem(string name, int amount)
+        public void RemoveItem(Item item, int amount)
         {
             SlottableItem viewItem;
-            if (_items.TryGetValue(name, out viewItem))
+            if (_items.TryGetValue(item.Name, out viewItem))
             {
                 viewItem.Amount -= amount;
                 if (viewItem.Amount <= 0)
                 {
-                    _items.Remove(name);
+                    _items.Remove(item.Name);
                     viewItem.Slot.Clear();
                 }
                 else
@@ -67,6 +68,13 @@ namespace SlotSystem
                     _items.Remove(slot.Item.Name.text);
                     slot.Item.Amount = 0;
                     slot.Item.Item = null;
+                    SlottableItem item = slot.Item;
+                    slot.Clear();
+                    Slot target = NextAvailableSlot();
+                    if (target != null)
+                    {
+                        target.Drop(item);
+                    }
                 }
             }
         }
@@ -89,7 +97,6 @@ namespace SlotSystem
             }
             foreach (Slot slot in _slots)
             {
-                Debug.Log(slot.Item);
                 if (slot.Item == null)
                 {
                     return slot;
@@ -132,13 +139,7 @@ namespace SlotSystem
                 viewItem.Init(item, amount);
                 _items[item.Name] = viewItem;
                 AddItem(viewItem);
-                
             }
-        }
-
-        public void SlotChanged(Slot slot, SlottableItem currentItem, SlottableItem previousItem)
-        {
-
         }
     }
 }

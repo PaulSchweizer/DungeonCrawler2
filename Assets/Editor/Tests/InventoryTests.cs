@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
+[TestFixture]
 public class InventoryTests
 {
 
@@ -13,23 +14,20 @@ public class InventoryTests
     public Item TestItem;
     public ItemDatabase Database;
 
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
-    {
-        SceneManager.LoadScene("Scripts/IntegrationTests/TestScenes/InventoryTests");
-    }
-
     [SetUp]
     public void SetUp()
     {
-        InventoryA = GameObject.Find("InventoryA").GetComponent<Inventory>();
-        InventoryB = GameObject.Find("InventoryB").GetComponent<Inventory>();
-        Database = InventoryA.ItemDatabase;
-        TestItem = Database.ItemByName<Item>("Coin");
+        TestItem = ScriptableObject.CreateInstance<Item>();
+        TestItem.Name = "Coin";
+        TestItem.Id = "0";
+        Database = ScriptableObject.CreateInstance<ItemDatabase>();
+        Database.Items = new Item[] { TestItem };
+        InventoryA = ScriptableObject.CreateInstance<Inventory>();
+        InventoryB = ScriptableObject.CreateInstance<Inventory>();
+        InventoryA.ItemDatabase = Database;
+        InventoryB.ItemDatabase = Database;
         InventoryA.Clear();
         InventoryB.Clear();
-
-        Database.ItemByName<Weapon>("Sword");
     }
 
     [Test]
@@ -62,9 +60,8 @@ public class InventoryTests
     [Test]
     public void Access_Items_from_ItemDatabase_by_Name_or_Id()
     {
-        Item Coin = Database.ItemByName<Item>("Coin");
-        Assert.AreEqual("Coin", Coin.Name);
-        Assert.AreEqual(Coin, Database.ItemByIdentifier<Item>(Coin.Identifier));
+        Assert.AreSame(TestItem, Database.ItemByName<Item>(TestItem.Name));
+        Assert.AreSame(TestItem, Database.ItemByIdentifier<Item>(TestItem.Identifier));
     }
 
     [Test]

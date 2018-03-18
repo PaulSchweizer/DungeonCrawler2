@@ -21,11 +21,34 @@ public class InventoryEntry
     }
 }
 
+#region Delegates
+
+public delegate void ItemAddedHandler(Inventory sender, ItemEventArgs e);
+public delegate void ItemRemovedHandler(Inventory sender, ItemEventArgs e);
+
+#endregion
+
 [CreateAssetMenu(fileName = "Inventory", menuName = "DungeonCrawler/Inventory")]
 public class Inventory : ScriptableObject
 {
     public ItemDatabase ItemDatabase;
     public List<InventoryEntry> Entries = new List<InventoryEntry>();
+
+    #region Events
+
+    public event ItemAddedHandler OnItemAdded;
+    public event ItemRemovedHandler OnItemRemoved;
+
+    public void EmitItemAdded(Item item, int amount)
+    {
+        ItemAddedHandler handler = OnItemAdded;
+        if (handler != null)
+        {
+            handler(this, new ItemEventArgs(item, amount));
+        }
+    }
+
+    #endregion
 
     public void AddItem(Item item, int amount = 1)
     {
@@ -34,10 +57,12 @@ public class Inventory : ScriptableObject
             if (Entries[i].Item.Id == item.Id)
             {
                 Entries[i].Amount += amount;
+                EmitItemAdded(item, amount);
                 return;
             }
         }
         Entries.Add(new InventoryEntry(item, amount));
+        EmitItemAdded(item, amount);
     }
 
     public void RemoveItem(Item item, int amount = 1)
@@ -50,6 +75,11 @@ public class Inventory : ScriptableObject
                 if (Entries[i].Amount <= 0)
                 {
                     Entries.Remove(Entries[i]);
+                }
+                ItemRemovedHandler handler = OnItemRemoved;
+                if (handler != null)
+                {
+                    handler(this, new ItemEventArgs(item, amount));
                 }
                 return;
             }
@@ -106,9 +136,16 @@ public class Inventory : ScriptableObject
     }
 
     #endregion
+}
 
-    #region Events
+public class ItemEventArgs : EventArgs
+{
+    public Item Item;
+    public int Amount;
 
-
-    #endregion
+    public ItemEventArgs(Item item, int amount)
+    {
+        Item = item;
+        Amount = amount;
+    }
 }
