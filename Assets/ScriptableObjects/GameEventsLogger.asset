@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0923685ab2a5ca340873cd64cb13e53b, type: 3}
+  m_Name: GameEventsLogger
+  m_EditorClassIdentifier: 
+  ShowLogs: 1
+  SendAnalytics: 1
+  LogMessages:
+  - Name: Attack
+    Template: "\u2694 __{0}__ _attacks_ __{1}__ with _{2}_ {3} ({4}+D{5})"
+    Enabled: 0
+    Analytics: 1
+  - Name: Defend
+    Template: \u26C9 __{0}__ _defends_ against __{1}__ with _{2}_ {3} ({4}+D{5})
+    Enabled: 0
+    Analytics: 0
+  - Name: GainsSpin
+    Template: \\+ __{0}__ gains {1} _spin_
+    Enabled: 0
+    Analytics: 0
+  - Name: UsesSpin
+    Template: \u2A39 __{0}__ uses {1} __Spin__
+    Enabled: 0
+    Analytics: 0
+  - Name: Separator
+    Template: '#### {0}'
+    Enabled: 0
+    Analytics: 0
+  - Name: ItemAdded
+    Template: 'Item Added to {0}: +{1} {2}'
+    Enabled: 0
+    Analytics: 0
+  - Name: ItemRemoved
+    Template: 'Item Removed from {0}: -{1} {2}'
+    Enabled: 0
+    Analytics: 0

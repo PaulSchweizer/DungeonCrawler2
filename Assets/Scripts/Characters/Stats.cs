@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [Serializable]
 public class EquipmentSlot
@@ -69,6 +70,10 @@ public class Stats : ScriptableObject
     public AspectDatabase AspectDatabase;
     public CharacterSet CharacterSet;
     public CharacterSet EnemySet;
+
+    [Header("Events")]
+    public GameEvent ItemEquipped;
+    public GameEvent ItemUnEquipped;
 
     // Internals
     private List<Armour> _equippedArmour = new List<Armour>();
@@ -188,6 +193,11 @@ public class Stats : ScriptableObject
         }
     }
 
+    public int XPForLevel(int level)
+    {
+        return level * level * 100;
+    }
+
     public void ReceiveXP(int xp)
     {
         //GameEventsLogger.LogReceivesXP(this, xp);
@@ -208,6 +218,40 @@ public class Stats : ScriptableObject
     #endregion
 
     #region Equipment
+
+    public void Equip(Item item, EquipmentSlot slot)
+    {
+        slot.Item = item;
+        ItemEquipped.Raise();
+    }
+
+    public void UnEquip(Item item, EquipmentSlot slot)
+    {
+        slot.Item = null;
+        ItemUnEquipped.Raise();
+    }
+    
+    public EquipmentSlot EquipmentSlotByName(string name)
+    {
+        foreach (EquipmentSlot slot in Equipment)
+        {
+            if (slot.Name == name) return slot;
+        }
+        return null;
+    }
+
+    public List<Item> EquippedItems
+    {
+        get
+        {
+            List<Item> items = new List<Item>();
+            foreach (EquipmentSlot slot in Equipment)
+            {
+                items.Add(slot.Item);
+            }
+            return items;
+        }
+    }
 
     public Weapon EquipppedWeapon
     {

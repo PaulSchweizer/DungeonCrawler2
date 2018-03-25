@@ -11,6 +11,7 @@ public class Item : ScriptableObject
     public string Name;
     public Sprite Sprite;
     public Aspect[] Aspects;
+    public GameObject Prefab;
 
     [JsonIgnore]
     public string Identifier

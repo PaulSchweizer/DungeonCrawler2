@@ -33,3 +33,5 @@ MonoBehaviour:
   AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}
   CharacterSet: {fileID: 11400000, guid: c273562cfda44844c91f6e123fbde012, type: 2}
   EnemySet: {fileID: 11400000, guid: fada659ec72c59b4c9a3b6f900e68aa8, type: 2}
+  ItemEquipped: {fileID: 0}
+  ItemUnEquipped: {fileID: 0}

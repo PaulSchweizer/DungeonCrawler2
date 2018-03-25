@@ -33,19 +33,21 @@ public class Inventory : ScriptableObject
 {
     public ItemDatabase ItemDatabase;
     public List<InventoryEntry> Entries = new List<InventoryEntry>();
+    public GameEventsLogger GameEventsLogger;
 
     #region Events
 
     public event ItemAddedHandler OnItemAdded;
     public event ItemRemovedHandler OnItemRemoved;
 
-    public void EmitItemAdded(Item item, int amount)
+    public void EmitOnItemAdded(Item item, int amount)
     {
         ItemAddedHandler handler = OnItemAdded;
         if (handler != null)
         {
             handler(this, new ItemEventArgs(item, amount));
         }
+        GameEventsLogger.LogItemAdded(this, item, amount);
     }
 
     #endregion
@@ -57,12 +59,12 @@ public class Inventory : ScriptableObject
             if (Entries[i].Item.Id == item.Id)
             {
                 Entries[i].Amount += amount;
-                EmitItemAdded(item, amount);
+                EmitOnItemAdded(item, amount);
                 return;
             }
         }
         Entries.Add(new InventoryEntry(item, amount));
-        EmitItemAdded(item, amount);
+        EmitOnItemAdded(item, amount);
     }
 
     public void RemoveItem(Item item, int amount = 1)
@@ -130,7 +132,7 @@ public class Inventory : ScriptableObject
         Clear();
         foreach(KeyValuePair<string, object> entry in data)
         {
-            Item item = ItemDatabase.ItemByIdentifier<Item>(entry.Key);
+            Item item = ItemDatabase.ItemByIdentifier(entry.Key);
             AddItem(item, Convert.ToInt32(entry.Value));
         }
     }

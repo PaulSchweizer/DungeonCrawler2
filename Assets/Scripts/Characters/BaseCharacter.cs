@@ -175,6 +175,9 @@ public class BaseCharacter : MonoBehaviour
     public int Spin;
     public BaseCharacter MarkedEnemy;
 
+    [Header("Debug")]
+    public GameEventsLogger GameEventsLogger;
+
     // Internals
     [HideInInspector]
     public Vector3 DestinationRotation = new Vector3();
@@ -294,7 +297,7 @@ public class BaseCharacter : MonoBehaviour
 
     public void Attack(BaseCharacter defender, Skill attackSkill)
     {
-        //GameEventsLogger.LogSeparator("Attack");
+        GameEventsLogger.LogSeparator("Attack");
         List<string> tags = new List<string>();
         for (int i = 0; i < defender.Stats.Tags.Count; i++)
         {
@@ -321,10 +324,10 @@ public class BaseCharacter : MonoBehaviour
         if (Spin > 0)
         {
             totalValue += Spin;
-            //GameEventsLogger.LogUsesSpin(this, Spin);
+            GameEventsLogger.LogUsesSpin(this, Spin);
             Spin = 0;
         }
-        //GameEventsLogger.LogAttack(this, defender, attackSkill, totalValue, skillValue, diceValue);
+        GameEventsLogger.LogAttack(this, defender, attackSkill, totalValue, skillValue, diceValue);
         int shifts = defender.Defend(this, attackSkill, totalValue);
         if (shifts > 0)
         {
@@ -369,12 +372,12 @@ public class BaseCharacter : MonoBehaviour
         int diceValue = Dice.Roll();
         int totalDefendValue = defendValue + diceValue;
         int shifts = attackValue - totalDefendValue;
-        //GameEventsLogger.LogDefend(attacker, this, defendSkill, totalDefendValue, defendValue, diceValue);
+        GameEventsLogger.LogDefend(attacker, this, defendSkill, totalDefendValue, defendValue, diceValue);
         if (shifts < -1)
         {
             int spin = shifts / -2;
             Spin += spin;
-            //GameEventsLogger.LogGainsSpin(this, spin);
+            GameEventsLogger.LogGainsSpin(this, spin);
         }
 
         return shifts;

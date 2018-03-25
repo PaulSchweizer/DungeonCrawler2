@@ -14,8 +14,9 @@ MonoBehaviour:
   ItemDatabase: {fileID: 11400000, guid: 093025571e934424dbfd6e2a30f02e29, type: 2}
   Entries:
   - Item: {fileID: 11400000, guid: fa29aa0a96cbb12439bd5d4f8016479e, type: 2}
-    Amount: 100
+    Amount: 1
   - Item: {fileID: 11400000, guid: d971ddd5c6a7a7b4597853efc3342a81, type: 2}
-    Amount: 500
+    Amount: 5
   - Item: {fileID: 11400000, guid: 5b78b3e613f04f64a8e69ecb82502fd2, type: 2}
-    Amount: 3000
+    Amount: 5
+  GameEventsLogger: {fileID: 11400000, guid: 24eb5139f9d5dc54783cb42b5d68047e, type: 2}

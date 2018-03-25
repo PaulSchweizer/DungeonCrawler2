@@ -74,7 +74,10 @@ namespace SlotSystem
             SlottableItem newItem = item;
             item.transform.SetParent(transform);
             item.FitIntoSlot();
-            ExecuteEvents.ExecuteHierarchy<ISlotChanged>(gameObject, null, (x, y) => x.SlotChanged(this, newItem, oldItem));
+            if (oldItem != newItem)
+            {
+                ExecuteEvents.ExecuteHierarchy<ISlotChanged>(gameObject, null, (x, y) => x.SlotChanged(this, newItem, oldItem));
+            }
             Item = item;
             Item.Slot = this;
         }

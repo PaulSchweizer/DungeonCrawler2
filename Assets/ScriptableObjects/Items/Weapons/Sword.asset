@@ -16,6 +16,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
   Aspects:
   - {fileID: 11400000, guid: 7ba6189c95856f34b96c5ab3ffe1ef7d, type: 2}
+  Prefab: {fileID: 100000, guid: ce1e37850e65cee44a276a95da078f04, type: 2}
   Damage: 1
   Speed: 1
   AttackShape:

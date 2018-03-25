@@ -11,6 +11,7 @@ public class InventoryUITests
     public Item TestItem;
     public InventoryUI InventoryUI;
     public ItemDatabase Database;
+    public GameEventsLogger GameEventsLogger;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -30,6 +31,8 @@ public class InventoryUITests
         InventoryUI = GameObject.Find("InventoryUI").GetComponent<InventoryUI>();
         Inventory inventory = ScriptableObject.CreateInstance<Inventory>();
         inventory.ItemDatabase = Database;
+        GameEventsLogger = ScriptableObject.CreateInstance<GameEventsLogger>();
+        inventory.GameEventsLogger = GameEventsLogger;
         InventoryUI.Inventory = inventory;
         InventoryUI.Initialize();
     }

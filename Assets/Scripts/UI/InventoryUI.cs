@@ -4,6 +4,7 @@ using SlotSystem;
 
 public class InventoryUI : MonoBehaviour
 {
+    public Stats Stats;
     public Inventory Inventory;
     public SlotView SlotView;
 
@@ -16,7 +17,7 @@ public class InventoryUI : MonoBehaviour
     {
         if (Inventory != null)
         {
-            SlotView.InitFromInventoryItems(Inventory);
+            SlotView.InitFromInventoryItems(Inventory, Stats);
             Inventory.OnItemAdded += ItemAddedToInventory;
             Inventory.OnItemRemoved += ItemRemovedFromInventory;
         }

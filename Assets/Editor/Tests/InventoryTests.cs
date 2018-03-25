@@ -13,10 +13,13 @@ public class InventoryTests
     public Inventory InventoryB;
     public Item TestItem;
     public ItemDatabase Database;
+    public GameEventsLogger GameEventsLogger;
 
     [SetUp]
     public void SetUp()
     {
+        GameEventsLogger = ScriptableObject.CreateInstance<GameEventsLogger>();
+
         TestItem = ScriptableObject.CreateInstance<Item>();
         TestItem.Name = "Coin";
         TestItem.Id = "0";
@@ -26,6 +29,8 @@ public class InventoryTests
         InventoryB = ScriptableObject.CreateInstance<Inventory>();
         InventoryA.ItemDatabase = Database;
         InventoryB.ItemDatabase = Database;
+        InventoryA.GameEventsLogger = GameEventsLogger;
+        InventoryB.GameEventsLogger = GameEventsLogger;
         InventoryA.Clear();
         InventoryB.Clear();
     }

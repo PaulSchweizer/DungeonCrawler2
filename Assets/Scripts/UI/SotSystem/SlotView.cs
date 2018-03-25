@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
 namespace SlotSystem
 {
@@ -20,13 +19,18 @@ namespace SlotSystem
 
         private void Awake()
         {
-            for (int i = 0; i < NumberOfSlots; i++)
+            foreach (Slot slot in SlotParent.GetComponentsInChildren<Slot>())
+            {
+                _slots.Add(slot);
+            }
+
+            for (int i = 0; i < NumberOfSlots - (_slots.Count - 1); i++)
             {
                 AddSlot();
             }
         }
 
-        public void InitFromInventoryItems(Inventory inventory)
+        public void InitFromInventoryItems(Inventory inventory, Stats stats = null)
         {
             ResetSlots();
             _items.Clear();
@@ -34,9 +38,19 @@ namespace SlotSystem
             {
                 NumberOfSlots = inventory.Entries.Count;
             }
+
+            List<Item> items = new List<Item>();
+            if (stats != null)
+            {
+                items = stats.EquippedItems;
+            }
+
             foreach (InventoryEntry entry in inventory.Entries)
             {
-                AddItem(entry.Item, entry.Amount);
+                if (!items.Contains(entry.Item))
+                {
+                    AddItem(entry.Item, entry.Amount);
+                }
             }
         }
 
@@ -105,21 +119,42 @@ namespace SlotSystem
             return InfiniteSlots ? AddSlot() : null;
         }
 
-        public void AddItem(SlottableItem item)
+        public Slot SlotByName(string name)
         {
-            Slot slot = NextAvailableSlot();
+            foreach (Slot slot in _slots)
+            {
+                if (slot.name == name)
+                {
+                    return slot;
+                }
+            }
+            return null;
+        }
+
+        public void AddItem(SlottableItem item, string slotName = null)
+        {
+            Slot slot = null;
+            if (slotName == null)
+            {
+                slot = NextAvailableSlot();
+            }
+            else
+            {
+                slot = SlotByName(slotName);
+            }
             if (slot != null)
             {
                 slot.Drop(item);
             }
         }
 
-        public void AddItem(Item item, int amount)
+        public void AddItem(Item item, int amount, string slotName = null, bool updateOnly = false)
         {
             SlottableItem viewItem;
             if (_items.TryGetValue(item.Name, out viewItem))
             {
-                viewItem.Amount += amount;
+                if (updateOnly) viewItem.Amount = amount;
+                else viewItem.Amount += amount;
                 viewItem.UpdateDisplay();
             }
             else
@@ -138,7 +173,7 @@ namespace SlotSystem
                 viewItem = Instantiate(SlottableItemPrefab);
                 viewItem.Init(item, amount);
                 _items[item.Name] = viewItem;
-                AddItem(viewItem);
+                AddItem(viewItem, slotName);
             }
         }
     }

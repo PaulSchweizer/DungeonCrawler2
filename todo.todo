@@ -84,16 +84,46 @@ Doing ######################### :
  ✔ InventoryUI @done (18-03-18 15:57)
  ✔ Loot @done (18-03-18 16:16)
   ✔ PickUp Loot @done (18-03-18 16:16)
+ ✔ GameEventsLogger @done (18-03-24 12:58)
+ ✔ EventLogger as SO @done (18-03-24 13:47)
+  ✔ enable, disable event types @done (18-03-24 13:47)
+ ✔ Make all the tests pass @done (18-03-24 15:11)
+ ✔ Catch up with Serialization @done (18-03-24 17:29)
+ ✔ Visuals for equipped items @done (18-03-24 18:26)
+ ✔ Initialize the Character in the beginning? @done (18-03-24 18:31)
+ ✔ GameEventsLogger @done (18-03-24 18:32)
+  ✔ Use Unity Event Logger @done (18-03-24 18:32)
  ☐ UI - PlayerUI
   ✔ Show with global event @done (18-03-18 16:45)
-  ☐ Inventory
-  ☐ Equipment
+  ✔ Inventory @done (18-03-24 13:06)
+   ✔ Only show, items that are not equipped?, Add an item entry, but do not add a SlottableItem? @done (18-03-24 12:28)
+  ✔ Equipment UI @done (18-03-24 17:29)
+   ✔ SlotView get Slot by Name @done (18-03-24 13:05)
+   ✔ Find all Slots already in the view and add them to the view first @done (18-03-24 12:28)
+   ✔ Implement item type blocking @done (18-03-24 13:11)
+   ✔ Callback when euipped @done (18-03-24 17:28)
   ☐ StatsView
+   ☐ Health
+   ☐ Connect On AttributeChange
+
  ☐ UI - Event Information
 
-Backlog ####################### :
 
- ☐ Fix serialization
+ ☐ GameController
+  ☐ MainMenu
+  ☐ LoadScene
+  ☐ SwitchScene
+  ☐ SaveGame
+  ☐ LoadGame
+  ☐ NewGame
+
+
+☐ ConnectEvents
+ ☐ Slot Rejected Signal
+ ☐ Slot Accepted Signal
+
+
+Backlog ####################### :
 
  ☐ Way to reset the PlayerUI and data on each load
   ☐ Load from json?
@@ -101,10 +131,6 @@ Backlog ####################### :
  ☐ GameController
   ☐ New Game
   ☐ SwitchLevel
-
-
- ☐ GameEventsLogger
-  ☐ Use Unity Event Logger
 
 
  ☐ States as ScriptableObjects?
