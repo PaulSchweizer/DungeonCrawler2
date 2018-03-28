@@ -16,7 +16,7 @@ MonoBehaviour:
   LogMessages:
   - Name: Attack
     Template: "\u2694 __{0}__ _attacks_ __{1}__ with _{2}_ {3} ({4}+D{5})"
-    Enabled: 0
+    Enabled: 1
     Analytics: 1
   - Name: Defend
     Template: \u26C9 __{0}__ _defends_ against __{1}__ with _{2}_ {3} ({4}+D{5})

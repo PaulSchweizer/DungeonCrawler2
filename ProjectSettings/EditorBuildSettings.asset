@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scripts/IntegrationTests/TestScenes/InventoryTests.unity
+    path: Assets/Scripts/IntegrationTests/TestScenes/InventoryUITests.unity
     guid: 0d2b5605d0a4ef146aeaca568943e336
   - enabled: 1
     path: Assets/Scripts/IntegrationTests/TestScenes/CharacterTests.unity
@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scripts/IntegrationTests/TestScenes/AttackShapeTests.unity
     guid: 4c386c33512ec124a96d2cae430fe2e5
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: c8be6fa9b1086a6498091714a50d711e

@@ -102,15 +102,10 @@ Doing ######################### :
    ✔ Find all Slots already in the view and add them to the view first @done (18-03-24 12:28)
    ✔ Implement item type blocking @done (18-03-24 13:11)
    ✔ Callback when euipped @done (18-03-24 17:28)
-  ☐ StatsView
-   ☐ Health
-   ☐ Connect On AttributeChange
-
- ☐ UI - Event Information
-
 
  ☐ GameController
   ☐ MainMenu
+
   ☐ LoadScene
   ☐ SwitchScene
   ☐ SaveGame
@@ -118,12 +113,18 @@ Doing ######################### :
   ☐ NewGame
 
 
+Backlog ####################### :
+  ☐ StatsView
+   ☐ Health
+   ☐ Connect On AttributeChange
+
+ ☐ UI - Event Information
+
 ☐ ConnectEvents
  ☐ Slot Rejected Signal
  ☐ Slot Accepted Signal
 
 
-Backlog ####################### :
 
  ☐ Way to reset the PlayerUI and data on each load
   ☐ Load from json?
