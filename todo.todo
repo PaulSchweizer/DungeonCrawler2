@@ -104,10 +104,13 @@ Doing ######################### :
    ✔ Callback when euipped @done (18-03-24 17:28)
 
  ☐ GameController
-  ☐ MainMenu
-
-  ☐ LoadScene
+  ✔ MainMenu @done (18-03-29 23:04)
+  ✔ LoadScene @done (18-03-29 23:04)
   ☐ SwitchScene
+   ☐ Prepare the TestScene2
+   ☐ Revise the names of the Events
+
+
   ☐ SaveGame
   ☐ LoadGame
   ☐ NewGame

@@ -29,4 +29,12 @@ public class GameEvent : ScriptableObject
             _listeners[i].OnEventRaised();
         }
     }
+
+    public void Raise(string data)
+    {
+        for (int i = _listeners.Count - 1; i >= 0; i--)
+        {
+            _listeners[i].OnEventRaised(data);
+        }
+    }
 }

@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
         sceneState = SceneState.FadeOut;
     }
 
-    public static void SwitchLocation(string location)
+    public void SwitchLevel(string level)
     {
         // 1. Make the PlayerCharacters undeletable
         //foreach (PlayerCharacter pc in FindObjectsOfType<PlayerCharacter>())
@@ -133,8 +133,9 @@ public class GameController : MonoBehaviour
         //    Instance.NextSceneName = "LevelTemplate";
         //    Instance._loadAction = LoadAction.LoadLocation;
         //}
-        // Instance._locationToLoad = location;
-        // Instance.sceneState = SceneState.FadeOut;
+        Debug.Log(level);
+        NextSceneName = level;
+        sceneState = SceneState.FadeOut;
     }
 
     #endregion

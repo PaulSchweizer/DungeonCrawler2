@@ -17,3 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: c8be6fa9b1086a6498091714a50d711e
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/TestLevel_1.unity
+    guid: bc85535449547cb4f98af792b087a868
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/TestLevel_2.unity
+    guid: 908db36f5951fb24194f3bdb47c97edb

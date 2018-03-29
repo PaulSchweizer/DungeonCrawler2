@@ -5,10 +5,17 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+[System.Serializable]
+public class MyStringEvent : UnityEvent<string>
+{
+}
+
 public class GameEventListener : MonoBehaviour
 {
     public GameEvent Event;
     public UnityEvent Response;
+    public MyStringEvent ResponseWithString;
 
     private void OnEnable()
     {
@@ -23,5 +30,10 @@ public class GameEventListener : MonoBehaviour
     public void OnEventRaised()
     {
         Response.Invoke();
+    }
+
+    public void OnEventRaised(string data)
+    {
+        ResponseWithString.Invoke(data);
     }
 }
