@@ -44,13 +44,24 @@ public class GameController : MonoBehaviour
     //private delegate void LoadActionDelegate();
     //private LoadActionDelegate[] loadActionDelegates;
 
+    public static GameController Instance;
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+
         // Set internals
         _rootDataPath = Path.Combine(Application.persistentDataPath, SavedGamesPath);
 
         // Delegates
-        DontDestroyOnLoad(transform.gameObject);
         updateDelegates = new UpdateDelegate[(int)SceneState.Count];
         updateDelegates[(int)SceneState.FadeOut] = UpdateSceneFadeOut;
         updateDelegates[(int)SceneState.Preload] = UpdateScenePreload;
@@ -113,27 +124,6 @@ public class GameController : MonoBehaviour
 
     public void SwitchLevel(string level)
     {
-        // 1. Make the PlayerCharacters undeletable
-        //foreach (PlayerCharacter pc in FindObjectsOfType<PlayerCharacter>())
-        //{
-        //    pc.gameObject.transform.SetParent(null);
-        //    pc.ChangeState(pc.Idle);
-        //    DontDestroyOnLoad(pc.gameObject);
-        //}
-
-        //if (location == "Worldmap")
-        //{
-        //    // Get the current location to determine the position on the map 
-        //    Instance.NextSceneName = "Worldmap";
-        //    Instance._locationToLoad = location;
-        //    Instance._loadAction = LoadAction.LoadWorldmap;
-        //}
-        //else
-        //{
-        //    Instance.NextSceneName = "LevelTemplate";
-        //    Instance._loadAction = LoadAction.LoadLocation;
-        //}
-        Debug.Log(level);
         NextSceneName = level;
         sceneState = SceneState.FadeOut;
     }
