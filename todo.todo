@@ -93,7 +93,7 @@ Doing ######################### :
  ✔ Initialize the Character in the beginning? @done (18-03-24 18:31)
  ✔ GameEventsLogger @done (18-03-24 18:32)
   ✔ Use Unity Event Logger @done (18-03-24 18:32)
- ☐ UI - PlayerUI
+ ✔ UI - PlayerUI @done (18-04-02 19:49)
   ✔ Show with global event @done (18-03-18 16:45)
   ✔ Inventory @done (18-03-24 13:06)
    ✔ Only show, items that are not equipped?, Add an item entry, but do not add a SlottableItem? @done (18-03-24 12:28)
@@ -102,27 +102,39 @@ Doing ######################### :
    ✔ Find all Slots already in the view and add them to the view first @done (18-03-24 12:28)
    ✔ Implement item type blocking @done (18-03-24 13:11)
    ✔ Callback when euipped @done (18-03-24 17:28)
-
- ☐ GameController
+ ✔ GameController @done (18-04-02 19:30)
   ✔ MainMenu @done (18-03-29 23:04)
   ✔ LoadScene @done (18-03-29 23:04)
   ✔ SwitchScene @done (18-03-30 08:55)
    ✔ Prepare the TestScene2 @done (18-03-30 08:55)
- ☐ have it as an optional singleton?
+ ✔ have it as an optional singleton? @done (18-04-02 18:24)
+ ✔ levelSwitchUI @done (18-04-02 18:56)
+ ✔ Load the UIs when loading a Level @done (18-04-02 19:30)
+ ✔ Fix PlayerUI base class from MonoBehaviour @done (18-04-02 19:32)
+ ✔ Initialize the Player from the Stats -> Equipment @done (18-04-02 19:49)
+ ✔ If Enemy of Player already in range and attackable, directly switch to AttackState @done (18-04-02 20:00)
+ ✔ For Enemies instantiate their own ScriptableObject @done (18-04-02 20:05)
+ ✔ Put the character to the correct location when switching levels @done (18-04-02 20:57)
+  ✔ SpawnPoint for Netry Point from level by name @done (18-04-02 20:57)
+  ✔ NewGame @done (18-04-02 21:16)
+  ✔ SaveGame @done (18-04-02 21:51)
+  ✔ LoadGame @done (18-04-02 21:51)
+ ✔ Does not work @done (18-04-02 22:09)
 
-  ☐ Revise the names of the Events
 
-
-  ☐ SaveGame
-  ☐ LoadGame
-  ☐ NewGame
 
 
 Backlog ####################### :
+  ☐ Revise the names of the Events
+   ☐ have different event types
+
+ ☐ Test Enemy with bigger radius
+
   ☐ StatsView
    ☐ Health
    ☐ Connect On AttributeChange
 
+ ☐ Optional default spawn point
  ☐ UI - Event Information
 
 ☐ ConnectEvents
@@ -131,7 +143,7 @@ Backlog ####################### :
 
 
 
- ☐ Way to reset the PlayerUI and data on each load
+ ☐ Way to reset the Data on each load
   ☐ Load from json?
 
  ☐ GameController
@@ -142,7 +154,6 @@ Backlog ####################### :
  ☐ States as ScriptableObjects?
 
  ☐ Remove EnemyTypes from the Characters
- ☐ If Enemy of Player already in range and attackable, directly switch to AttackState
 
 
  ☐ GameMaster -> ScriptableObject, referenced by Character etc.
@@ -172,7 +183,7 @@ UIs:
  ☐ ExitUI
  ☐ GameOverUI
 
-- Editor ----------------------------------------------
+- Editor --------------------
 
 Data Pipeline:
  ☐ Download data from google drive (python script)

@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelPortal : MonoBehaviour
 {
     public string Destination;
-
-    public GameEvent OnLevelSwitch;
-
-    //public ExitUI UI;
+    public GameEvent OnLevelSwitchRequested;
+    public GameEvent OnLevelSwitchAborted;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            //UI.Show(Destination);
-            OnLevelSwitch.Raise(Destination);
+            OnLevelSwitchRequested.Raise(Destination);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        //if (other.CompareTag("Player"))
-        //{
-        //    UI.Close();
-        //}
+        if (other.CompareTag("Player"))
+        {
+            OnLevelSwitchAborted.Raise();
+        }
     }
 }

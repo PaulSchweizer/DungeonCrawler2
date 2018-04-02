@@ -43,15 +43,15 @@ public class InventoryUITests
         for(int i = 0; i < 10; i++)
         {
             InventoryUI.Inventory.AddItem(TestItem, 100);
-            Assert.AreEqual(1, InventoryUI.SlotView._items.Count, "Expected 1 SlottableItem");
-            Assert.AreEqual("100", InventoryUI.SlotView._items[TestItem.Name].AmountText.text);
+            Assert.AreEqual(1, InventoryUI.SlotView.Items.Count, "Expected 1 SlottableItem");
+            Assert.AreEqual("100", InventoryUI.SlotView.Items[TestItem.Name].AmountText.text);
 
             InventoryUI.Inventory.RemoveItem(TestItem, 99);
-            Assert.AreEqual(1, InventoryUI.SlotView._items.Count, "Removed 99/100 Items, Expected to still have 1 SlottaleItem");
-            Assert.AreEqual("1", InventoryUI.SlotView._items[TestItem.Name].AmountText.text);
+            Assert.AreEqual(1, InventoryUI.SlotView.Items.Count, "Removed 99/100 Items, Expected to still have 1 SlottaleItem");
+            Assert.AreEqual("1", InventoryUI.SlotView.Items[TestItem.Name].AmountText.text);
 
             InventoryUI.Inventory.RemoveItem(TestItem, 1);
-            Assert.AreEqual(0, InventoryUI.SlotView._items.Count, "Expected 0 SlottableItems");
+            Assert.AreEqual(0, InventoryUI.SlotView.Items.Count, "Expected 0 SlottableItems");
         }
     }
 }

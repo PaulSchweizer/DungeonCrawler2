@@ -2,7 +2,7 @@
 using SlotSystem;
 using UnityEngine.UI;
 
-public class EuipmentUI : MonoBehaviour, ISlotChanged
+public class EquipmentUI : MonoBehaviour, ISlotChanged
 {
     public Stats Stats;
     public Inventory Inventory;
@@ -12,21 +12,23 @@ public class EuipmentUI : MonoBehaviour, ISlotChanged
     public Text ProtectionValue;
     public Text AttackRangeValue;
 
-    private void OnEnable()
+    public void Start()
     {
         Initialize();
     }
 
     public void Initialize()
     {
+        SlotView.ResetSlots();
+        SlotView.Items.Clear();
         foreach (EquipmentSlot equipmentSlot in Stats.Equipment)
         {
             if (equipmentSlot.Item != null)
             {
                 SlotView.AddItem(equipmentSlot.Item, 
-                                    Inventory.Amount(equipmentSlot.Item), 
-                                    equipmentSlot.Name, 
-                                    updateOnly: true);
+                                 Inventory.Amount(equipmentSlot.Item), 
+                                 equipmentSlot.Name, 
+                                 updateOnly: true);
             }
         }
         UpdateDisplay();

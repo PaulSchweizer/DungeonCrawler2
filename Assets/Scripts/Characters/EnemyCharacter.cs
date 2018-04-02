@@ -10,6 +10,8 @@ public class EnemyCharacter : BaseCharacter
         Idle = EnemyIdleState.Instance;
         Chase = EnemyChaseState.Instance;
         base.Awake();
+
+        Stats = Instantiate(Stats);
     }
 
 #if UNITY_EDITOR

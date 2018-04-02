@@ -1,32 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject PlayerPrefab;
+    [Header("Prefabs to load")]
+    public PlayerCharacter PlayerPrefab;
     public CameraController CameraRigPrefab;
+
+    [Header("UIs to load")]
+    public GameObject MenuBarPrefab;
+    public LevelPortalUI LevelPortalUIPrefab;
+    public PlayerUI PlayerUIPrefab;
 
     [Header("Events")]
     public GameEvent SceneReady;
 
-    public void Start()
-    {
-        InitializeScene();
-    }
+    //public void Awake()
+    //{
+    //    InitializeScene("");
+    //}
 
-    public void InitializeScene()
+    public void Initialize(string previousSceneName)
     {
-        GameObject player = Instantiate(PlayerPrefab);
+        // Player
+        PlayerCharacter player = FindObjectOfType<PlayerCharacter>();
+        if (player == null) player = Instantiate(PlayerPrefab);
 
+        // Put the Player to the correct SpawnPoint
+        foreach (LevelPortal portal in FindObjectsOfType<LevelPortal>())
+        {
+            if (previousSceneName == portal.Destination)
+            {
+                player.transform.position = portal.transform.position;
+                break;
+            }
+        }
+
+        // Camera
         CameraController cameraRig = FindObjectOfType<CameraController>();
         if (cameraRig == null) cameraRig = Instantiate(CameraRigPrefab);
         cameraRig.Target = player.transform;
 
-
+        // UIs
+        if (GameObject.Find("MenuBar") == null) Instantiate(MenuBarPrefab);
+        if (FindObjectOfType<PlayerUI>() == null) Instantiate(PlayerUIPrefab);
+        if (FindObjectOfType<LevelPortalUI>() == null) Instantiate(LevelPortalUIPrefab);
 
         SceneReady.Raise();
     }

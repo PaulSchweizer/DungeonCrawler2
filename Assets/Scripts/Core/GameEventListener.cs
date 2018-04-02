@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[System.Serializable]
-public class MyStringEvent : UnityEvent<string>
+[Serializable]
+public class StringEvent : UnityEvent<string>
 {
 }
 
@@ -15,7 +15,7 @@ public class GameEventListener : MonoBehaviour
 {
     public GameEvent Event;
     public UnityEvent Response;
-    public MyStringEvent ResponseWithString;
+    public StringEvent ResponseWithString;
 
     private void OnEnable()
     {

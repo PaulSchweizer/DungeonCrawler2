@@ -154,13 +154,11 @@ public class CombatState : CharacterState
         if (character.ScheduledAttack.IsActive)
         {
             character.ScheduledAttack.CurrentTime += Time.deltaTime;
-            //character.AttackSlider.value = character.Data.ScheduledAttack.CurrentTime;
             DebugColor = Color.red;
             if (character.ScheduledAttack.Progress() >= 0.5 && !character.ScheduledAttack.HitOccurred)
             {
                 character.ScheduledAttack.Hit();
                 DebugColor = Color.yellow;
-                //character.AttackSlider.fillRect.GetComponent<Image>().color = new Color(0f, 0f, 1f);
             }
             else if (character.ScheduledAttack.Progress() >= 1)
             {
@@ -177,7 +175,6 @@ public class CombatState : CharacterState
     {
         character.ScheduledAttack.Stop();
         character.MarkedEnemy = null;
-        //character.AttackSlider.value = 0;
     }
 }
 

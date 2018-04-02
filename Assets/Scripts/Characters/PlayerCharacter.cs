@@ -12,6 +12,7 @@ public class PlayerCharacter : BaseCharacter
     public override void Awake()
     {
         base.Awake();
+        UpdateEquipment();
     }
 
     public Transform ParentForEquipmentSlot(EquipmentSlot slot)

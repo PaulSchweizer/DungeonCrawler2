@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class PlayerUI : GameEventListener
+public class PlayerUI : MonoBehaviour
 {
     [Header("HUD")]
     public GameObject MenuPanel;

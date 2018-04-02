@@ -14,7 +14,7 @@ namespace SlotSystem
         public Transform SlotParent;
         public SlottableItem SlottableItemPrefab;
 
-        public Dictionary<string, SlottableItem> _items = new Dictionary<string, SlottableItem>() { };
+        public Dictionary<string, SlottableItem> Items = new Dictionary<string, SlottableItem>() { };
         private readonly List<Slot> _slots = new List<Slot>();
 
         private void Awake()
@@ -33,7 +33,7 @@ namespace SlotSystem
         public void InitFromInventoryItems(Inventory inventory, Stats stats = null)
         {
             ResetSlots();
-            _items.Clear();
+            Items.Clear();
             if (inventory.Entries.Count > NumberOfSlots)
             {
                 NumberOfSlots = inventory.Entries.Count;
@@ -57,12 +57,12 @@ namespace SlotSystem
         public void RemoveItem(Item item, int amount)
         {
             SlottableItem viewItem;
-            if (_items.TryGetValue(item.Name, out viewItem))
+            if (Items.TryGetValue(item.Name, out viewItem))
             {
                 viewItem.Amount -= amount;
                 if (viewItem.Amount <= 0)
                 {
-                    _items.Remove(item.Name);
+                    Items.Remove(item.Name);
                     viewItem.Slot.Clear();
                 }
                 else
@@ -79,7 +79,7 @@ namespace SlotSystem
                 if (slot.Item != null)
                 {
                     slot.Item.gameObject.SetActive(false);
-                    _items.Remove(slot.Item.Name.text);
+                    Items.Remove(slot.Item.Name.text);
                     slot.Item.Amount = 0;
                     slot.Item.Item = null;
                     SlottableItem item = slot.Item;
@@ -105,7 +105,7 @@ namespace SlotSystem
 
         public Slot NextAvailableSlot()
         {
-            if (_items.Count > NumberOfSlots)
+            if (Items.Count > NumberOfSlots)
             {
                 return InfiniteSlots ? AddSlot() : null;
             }
@@ -151,7 +151,7 @@ namespace SlotSystem
         public void AddItem(Item item, int amount, string slotName = null, bool updateOnly = false)
         {
             SlottableItem viewItem;
-            if (_items.TryGetValue(item.Name, out viewItem))
+            if (Items.TryGetValue(item.Name, out viewItem))
             {
                 if (updateOnly) viewItem.Amount = amount;
                 else viewItem.Amount += amount;
@@ -172,7 +172,7 @@ namespace SlotSystem
                 }
                 viewItem = Instantiate(SlottableItemPrefab);
                 viewItem.Init(item, amount);
-                _items[item.Name] = viewItem;
+                Items[item.Name] = viewItem;
                 AddItem(viewItem, slotName);
             }
         }

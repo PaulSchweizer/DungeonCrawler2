@@ -77,10 +77,15 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 float mag = from_pc_to_enemy.magnitude;
                 from_pc_to_enemy.Normalize();
                 from_pc_to_enemy = from_pc_to_enemy * (mag - PlayerCharacters.Items[i].NavMeshAgent.radius - enemy.NavMeshAgent.radius);
-                //Vector3 point = PlayerCharacters.Items[i].transform.position + from_pc_to_enemy;
-
                 ApplyCharacterDestinations(PlayerCharacters.Items[i], point);
-                PlayerCharacters.Items[i].ChangeState(PlayerCharacters.Items[i].Chase);
+                if (PlayerCharacters.Items[i].EnemiesInAttackShape().Contains(enemy))
+                {
+                    PlayerCharacters.Items[i].ChangeState(PlayerCharacters.Items[i].Combat);
+                }
+                else
+                {
+                    PlayerCharacters.Items[i].ChangeState(PlayerCharacters.Items[i].Chase);
+                }
             }
         }
     }

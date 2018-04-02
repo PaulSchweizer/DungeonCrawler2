@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +20,7 @@ public class GameController : MonoBehaviour
     public TextAsset DefaultGame;
 
     [Header("Internal Data")]
-    // public string CurrentSceneName;
+    public string PreviousSceneName;
     public string NextSceneName;
 
     [Header("Events")]
@@ -30,8 +28,6 @@ public class GameController : MonoBehaviour
 
     // Internals
     private string _rootDataPath;
-    private string _gameToLoad;
-    //private string _locationToLoad;
 
     private AsyncOperation resourceUnloadTask;
     private AsyncOperation sceneLoadTask;
@@ -39,10 +35,6 @@ public class GameController : MonoBehaviour
     private SceneState sceneState;
     private delegate void UpdateDelegate();
     private UpdateDelegate[] updateDelegates;
-
-    //private enum LoadAction { StartGame, LoadLocation, LoadWorldmap, Count };
-    //private delegate void LoadActionDelegate();
-    //private LoadActionDelegate[] loadActionDelegates;
 
     public static GameController Instance;
 
@@ -70,12 +62,6 @@ public class GameController : MonoBehaviour
         updateDelegates[(int)SceneState.FadeIn] = UpdateSceneFadeIn;
         updateDelegates[(int)SceneState.Run] = UpdateSceneRun;
         sceneState = SceneState.Run;
-
-        //loadActionDelegates = new LoadActionDelegate[(int)LoadAction.Count];
-        //loadActionDelegates[(int)LoadAction.StartGame] = StartGame;
-        ////loadActionDelegates[(int)LoadAction.LoadLocation] = LoadLocation;
-        ////loadActionDelegates[(int)LoadAction.LoadWorldmap] = LoadWorldmap;
-        //_loadAction = LoadAction.StartGame;
     }
 
     #region Actions
@@ -83,8 +69,7 @@ public class GameController : MonoBehaviour
     public void NewGame()
     {
         Dictionary<string, string> data = SerializationUtilitites.DeserializeFromJson<Dictionary<string, string>>(DefaultGame.text);
-        NextSceneName = data["Location"];
-        InitializeGame(DefaultGame.text);
+        InitializeGame(data);
     }
 
     //public void LoadGame(string name)
@@ -116,16 +101,37 @@ public class GameController : MonoBehaviour
     //    GameMaster.SaveCurrentGame(name);
     //}
 
-    private void InitializeGame(string data)
+    private void InitializeGame(Dictionary<string, string> data)
     {
-        _gameToLoad = data;
+        NextSceneName = data["Location"];
         sceneState = SceneState.FadeOut;
     }
 
     public void SwitchLevel(string level)
     {
+        PreviousSceneName = SceneManager.GetActiveScene().name;
         NextSceneName = level;
         sceneState = SceneState.FadeOut;
+    }
+
+    public void SaveGame()
+    {
+        string savePath = Path.Combine(Path.Combine(_rootDataPath, "SavedGame"), "GameSata.json");
+        FileInfo saveFile = new FileInfo(savePath);
+        saveFile.Directory.Create();
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["Location"] = SceneManager.GetActiveScene().name;
+        File.WriteAllText(saveFile.FullName, SerializationUtilitites.SerializeToJson(data));
+        Debug.Log(string.Format("Saved Game to: {0}", savePath));
+    }
+
+    public void LoadGame()
+    {
+        string savePath = Path.Combine(_rootDataPath, "SavedGame");
+        string json = File.ReadAllText(Path.Combine(savePath, "GameSata.json"));
+        Dictionary<string, string> data = SerializationUtilitites.DeserializeFromJson<Dictionary<string, string>>(json);
+        InitializeGame(data);
+        Debug.Log(string.Format("Loaded Game from: {0}", savePath));
     }
 
     #endregion
@@ -191,7 +197,8 @@ public class GameController : MonoBehaviour
 
     private void UpdateSceneLoad()
     {
-        SceneLoaded.Raise();
+        // Pass on the current scene name
+        SceneLoaded.Raise(PreviousSceneName);
     }
 
     private void UpdateSceneFadeIn()
@@ -214,46 +221,6 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Load Actions
-
-    private void StartGame()
-    {
-  
-
-        //// Initialize the GameMaster
-        //GameMaster.InitializeGame(GameData.RulebookData, GameData.ArmoursData, GameData.ItemsData, GameData.WeaponsData,
-        //                          GameData.SkillsData, GameData.MonstersData, GameData.LocationsData, GameData.CellBlueprintsData,
-        //                          GameData.QuestsData);
-
-        //// Load the Game
-        //GameMaster.RootDataPath = _rootDataPath;
-        //GameMaster.LoadGame(_gameToLoad.PCsData, _gameToLoad.Location, _gameToLoad.GlobalStateData);
-
-        ////  Init the Tabletop and the Location
-        //GameObject tabletop = Instantiate(TabletopPrefab);
-        //Level level = tabletop.GetComponent<Level>();
-        //level.Location = GameMaster.CurrentLocation;
-        //level.Create();
-
-        //// Camera
-        //CameraRig camera = FindObjectOfType<CameraRig>();
-
-        //// Load the PCs  
-        //List<Character> pcs = GameMaster.CharactersOfType("Player");
-        //foreach (Character character in pcs)
-        //{
-        //    GameObject player = Instantiate(PlayerCharacterPrefab);
-        //    PlayerCharacter playerCharacter = player.GetComponent<PlayerCharacter>();
-        //    playerCharacter.Data = character;
-        //    playerCharacter.transform.position = new Vector3(character.Transform.Position.X, 0, character.Transform.Position.Y);
-        //    playerCharacter.transform.Rotate(new Vector3(0, character.Transform.Rotation, 0), Space.World);
-        //    camera.Target = player.transform;
-        //}
-
-        //// Initialize UIs
-        //PlayerUI.Instance.Initialize();
-        //GameOverUI.Instance.Initialize();
-        //HUDMessageUI.Instance.Initialize();
-    }
 
     private void LoadLocation()
     {
