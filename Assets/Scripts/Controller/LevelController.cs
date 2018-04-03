@@ -12,12 +12,7 @@ public class LevelController : MonoBehaviour
     public PlayerUI PlayerUIPrefab;
 
     [Header("Events")]
-    public GameEvent SceneReady;
-
-    //public void Awake()
-    //{
-    //    InitializeScene("");
-    //}
+    public StringGameEvent OnSceneReady;
 
     public void Initialize(string previousSceneName)
     {
@@ -45,6 +40,6 @@ public class LevelController : MonoBehaviour
         if (FindObjectOfType<PlayerUI>() == null) Instantiate(PlayerUIPrefab);
         if (FindObjectOfType<LevelPortalUI>() == null) Instantiate(LevelPortalUIPrefab);
 
-        SceneReady.Raise();
+        OnSceneReady.Raise("");
     }
 }

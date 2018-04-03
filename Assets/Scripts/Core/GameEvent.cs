@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameEvent", menuName = "DungeonCrawler/GameEvent")]
+[CreateAssetMenu(fileName = "GameEvent", menuName = "DungeonCrawler/Events/GameEvent")]
 public class GameEvent : ScriptableObject
 {
     private List<GameEventListener> _listeners = new List<GameEventListener>();
@@ -27,14 +27,6 @@ public class GameEvent : ScriptableObject
         for (int i = _listeners.Count - 1; i >= 0; i--)
         {
             _listeners[i].OnEventRaised();
-        }
-    }
-
-    public void Raise(string data)
-    {
-        for (int i = _listeners.Count - 1; i >= 0; i--)
-        {
-            _listeners[i].OnEventRaised(data);
         }
     }
 }

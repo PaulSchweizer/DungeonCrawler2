@@ -120,13 +120,12 @@ Doing ######################### :
   ✔ SaveGame @done (18-04-02 21:51)
   ✔ LoadGame @done (18-04-02 21:51)
  ✔ Does not work @done (18-04-02 22:09)
-
+ ☐ Revise the names of the Events
+   ☐ have different event types
 
 
 
 Backlog ####################### :
-  ☐ Revise the names of the Events
-   ☐ have different event types
 
  ☐ Test Enemy with bigger radius
 

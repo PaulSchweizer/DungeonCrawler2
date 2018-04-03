@@ -9,5 +9,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cef744420c9271478dd566a6dd7576a, type: 3}
-  m_Name: SceneReady
+  m_Name: __SceneReady
   m_EditorClassIdentifier: 

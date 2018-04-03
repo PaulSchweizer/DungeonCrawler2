@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+using UnityEngine;
 
-namespace Assets.Editor
+[CustomEditor(typeof(GameEventListener), true)]
+public class GameEventListenerEditor : Editor
 {
-    class GameEventListenerEditor
+    public string Notes;
+
+    public override void OnInspectorGUI()
     {
+        Notes = EditorGUILayout.TextField("");
+        DrawDefaultInspector();
     }
 }
+
+#endif

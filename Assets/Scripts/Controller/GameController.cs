@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     public string NextSceneName;
 
     [Header("Events")]
-    public GameEvent SceneLoaded;
+    public StringGameEvent OnSceneLoaded;
 
     // Internals
     private string _rootDataPath;
@@ -198,7 +198,7 @@ public class GameController : MonoBehaviour
     private void UpdateSceneLoad()
     {
         // Pass on the current scene name
-        SceneLoaded.Raise(PreviousSceneName);
+        OnSceneLoaded.Raise(PreviousSceneName);
     }
 
     private void UpdateSceneFadeIn()

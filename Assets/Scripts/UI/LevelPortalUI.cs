@@ -11,7 +11,7 @@ public class LevelPortalUI : MonoBehaviour
     public Text DestinationText;
     public Button OkButton;
     public Button CancelButton;
-    public GameEvent OnLevelSwitch;
+    public StringGameEvent OnLevelSwitch;
 
     private string Destination;
 

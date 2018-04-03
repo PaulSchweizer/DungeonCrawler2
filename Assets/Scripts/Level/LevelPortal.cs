@@ -3,7 +3,7 @@
 public class LevelPortal : MonoBehaviour
 {
     public string Destination;
-    public GameEvent OnLevelSwitchRequested;
+    public StringGameEvent OnLevelSwitchRequested;
     public GameEvent OnLevelSwitchAborted;
 
     private void OnTriggerEnter(Collider other)

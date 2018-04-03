@@ -8,6 +8,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cef744420c9271478dd566a6dd7576a, type: 3}
-  m_Name: SceneLoaded
+  m_Script: {fileID: 11500000, guid: 9997fd464c0a8964c82d2048bb44c894, type: 3}
+  m_Name: OnSceneReady
   m_EditorClassIdentifier: 
