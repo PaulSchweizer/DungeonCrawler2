@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 745672d7b2f2d6141b2368d0f4ea9f00, type: 3}
-  m_Name: Coin
+  m_Name: MammothTusk
   m_EditorClassIdentifier: 
-  Id: F4E2A503-F0A4-9B7C-84E0-1164-87B591F2651F
-  Name: Coin
+  Id: 574604BC-5057-F85F-0559-0142-DB8A13F3D43D
+  Name: MammothTusk
   Sprite: {fileID: 0}
   Aspects: []
   Prefab: {fileID: 0}

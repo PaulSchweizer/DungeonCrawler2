@@ -9,7 +9,9 @@ public class GameEventListenerEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        Notes = EditorGUILayout.TextField("");
+        GameEventListener listener = target as GameEventListener;
+        if (listener.Event != null) Notes = listener.Event.name;
+        Notes = EditorGUILayout.TextField(Notes);
         DrawDefaultInspector();
     }
 }

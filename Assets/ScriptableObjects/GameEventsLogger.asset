@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0923685ab2a5ca340873cd64cb13e53b, type: 3}
   m_Name: GameEventsLogger
   m_EditorClassIdentifier: 
-  ShowLogs: 1
-  SendAnalytics: 1
+  ShowLogs: 0
+  SendAnalytics: 0
   LogMessages:
   - Name: Attack
     Template: "\u2694 __{0}__ _attacks_ __{1}__ with _{2}_ {3} ({4}+D{5})"

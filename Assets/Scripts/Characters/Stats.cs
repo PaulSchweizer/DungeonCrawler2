@@ -340,7 +340,8 @@ public class Stats : ScriptableObject
         Dictionary<string, string> equipment = new Dictionary<string, string>();
         foreach (EquipmentSlot slot in Equipment)
         {
-            equipment[slot.Name] = slot.Item.Identifier;
+            if (slot.Item != null) equipment[slot.Name] = slot.Item.Identifier;
+            else equipment[slot.Name] = null;
         }
         data["Equipment"] = equipment;
 

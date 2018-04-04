@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 745672d7b2f2d6141b2368d0f4ea9f00, type: 3}
-  m_Name: Coin
+  m_Name: Dice
   m_EditorClassIdentifier: 
-  Id: F4E2A503-F0A4-9B7C-84E0-1164-87B591F2651F
-  Name: Coin
+  Id: 02C26342-D7A4-44AE-5C0C-BC4E-A17685B011B3
+  Name: Dice
   Sprite: {fileID: 0}
   Aspects: []
   Prefab: {fileID: 0}

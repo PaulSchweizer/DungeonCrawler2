@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     [Header("Game Data")]
     public string SavedGamesPath = "SavedGames";
+    public CharacterSet CharacterSet;
 
     [Header("Fading Screen")]
     public Canvas FadingCanvas;
@@ -18,6 +19,7 @@ public class GameController : MonoBehaviour
 
     [Header("Prefabs")]
     public TextAsset DefaultGame;
+    public PlayerCharacter PlayerPrefab;
 
     [Header("Internal Data")]
     public string PreviousSceneName;
@@ -116,22 +118,50 @@ public class GameController : MonoBehaviour
 
     public void SaveGame()
     {
-        string savePath = Path.Combine(Path.Combine(_rootDataPath, "SavedGame"), "GameSata.json");
+        string savedGameName = "SavedGame"; // TODO Replace this by a user provided name or the current date?
+        string rootPath = Path.Combine(_rootDataPath, savedGameName);
+        
+        // Save the Game State
+        string savePath = Path.Combine(rootPath, "GameSata.json");
         FileInfo saveFile = new FileInfo(savePath);
         saveFile.Directory.Create();
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["Location"] = SceneManager.GetActiveScene().name;
         File.WriteAllText(saveFile.FullName, SerializationUtilitites.SerializeToJson(data));
         Debug.Log(string.Format("Saved Game to: {0}", savePath));
+
+        // Save the Character
+        foreach(BaseCharacter player in CharacterSet.Items)
+        {
+            savePath = Path.Combine(Path.Combine(rootPath, "Characters"), player.Stats.Name + ".json");
+            saveFile = new FileInfo(savePath);
+            saveFile.Directory.Create();
+            File.WriteAllText(saveFile.FullName, SerializationUtilitites.SerializeToJson(player.SerializeToData()));
+            Debug.Log(string.Format("Saved {0} to: {1}", player.Stats.Name, savePath));
+        }
     }
 
     public void LoadGame()
     {
-        string savePath = Path.Combine(_rootDataPath, "SavedGame");
-        string json = File.ReadAllText(Path.Combine(savePath, "GameSata.json"));
+        string savedGameName = "SavedGame"; // TODO Replace this by a user provided name or the current date?
+        string rootPath = Path.Combine(_rootDataPath, savedGameName);
+        
+        // Game State
+        string savePath = Path.Combine(rootPath, "GameSata.json");
+        string json = File.ReadAllText(savePath);
         Dictionary<string, string> data = SerializationUtilitites.DeserializeFromJson<Dictionary<string, string>>(json);
         InitializeGame(data);
         Debug.Log(string.Format("Loaded Game from: {0}", savePath));
+
+        // Characters
+        savePath = Path.Combine(rootPath, "Characters");
+        foreach (string file in Directory.GetFiles(savePath, "*.json"))
+        {
+            json = File.ReadAllText(file);
+            PlayerCharacter player = Instantiate(PlayerPrefab);
+            player.DeserializeFromJson(json);
+            Debug.Log(string.Format("Loaded Character from: {0}", file));
+        }
     }
 
     #endregion

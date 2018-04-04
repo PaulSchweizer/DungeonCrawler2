@@ -120,8 +120,9 @@ Doing ######################### :
   ✔ SaveGame @done (18-04-02 21:51)
   ✔ LoadGame @done (18-04-02 21:51)
  ✔ Does not work @done (18-04-02 22:09)
- ☐ Revise the names of the Events
-   ☐ have different event types
+ ✔ Revise the names of the Events @done (18-04-04 21:53)
+   ✔ have different event types @done (18-04-04 21:53)
+ ✔ Save/Load the Character on Save/Load @done (18-04-04 22:21)
 
 
 
@@ -185,10 +186,10 @@ UIs:
 - Editor --------------------
 
 Data Pipeline:
- ☐ Download data from google drive (python script)
- ☐ Convert the json data into ScriptableObjects and extend the existing database
-  ☐ Restrictions:
-   ☐ Have an attribute, like "json driven" on the items. If true the item can't be edited, only through the json data workflow
+ ✔ Download data from google drive (python script) @done (18-04-04 23:00)
+ ✔ Convert the json data into ScriptableObjects and extend the existing database @done (18-04-04 23:00)
+  ✘ Restrictions: @cancelled (18-04-04 23:00)
+   ✘ Have an attribute, like "json driven" on the items. If true the item can't be edited, only through the json data workflow @cancelled (18-04-04 23:00)
 
 Location:
  ☐ Build location manually
