@@ -16,7 +16,7 @@ def download_items():
     for item in items:
         item["Id"] = str(item["Id"])
         # item["Tags"] = item["Tags"] or []
-        # item["Aspects"] = item["Aspects"] or []
+        item["Aspects"] = [] # item["Aspects"] or []
         item.pop('EquipmentSlot', None)
         item.pop('IsUnique', None)
         item.pop('Description', None)

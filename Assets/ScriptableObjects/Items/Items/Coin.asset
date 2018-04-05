@@ -16,3 +16,4 @@ MonoBehaviour:
   Sprite: {fileID: 0}
   Aspects: []
   Prefab: {fileID: 0}
+  AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}

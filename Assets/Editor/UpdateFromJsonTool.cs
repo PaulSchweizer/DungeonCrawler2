@@ -31,26 +31,41 @@ public class UpdateFromJsonTool : EditorWindow
 
     private void UpdateItems()
     {
+        string aspectDatabasePath = string.Format("Assets/ScriptableObjects/Aspects/AspectDatabase.asset", name);
+        AspectDatabase aspectDatabase = (AspectDatabase)AssetDatabase.LoadAssetAtPath(aspectDatabasePath, typeof(AspectDatabase));
         string itemsDir = Path.Combine(Path.Combine(jsonRootDir, "Items"), "Items");
         foreach (string file in Directory.GetFiles(itemsDir, "*.json"))
         {
             string json = File.ReadAllText(file);
             string name = new FileInfo(file).Name.Split('.')[0];
             string path = string.Format("Assets/ScriptableObjects/Items/Items/{0}.asset", name);
-
+            Item item = null;
             if (File.Exists(path))
             {
-                Item item = (Item)AssetDatabase.LoadAssetAtPath(path, typeof(Item));
-                item.DeserializeFromJson(json);
-                AssetDatabase.SaveAssets();
+                item = (Item)AssetDatabase.LoadAssetAtPath(path, typeof(Item));
             }
             else
             {
-                Item item = ScriptableObject.CreateInstance<Item>();
-                item.DeserializeFromJson(json);
+                item = ScriptableObject.CreateInstance<Item>();
                 SaveAsset(item, path);
             }
+            item.AspectDatabase = aspectDatabase;
+            item.DeserializeFromJson(json);
+            string prefabPath = string.Format("Assets/Prefabs/Items/Items/{0}.asset", name);
+            if (File.Exists(prefabPath))
+            {
+                GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject));
+                item.Prefab = prefab;
+            }
+            string spritePath = string.Format("Assets/Sprites/Items/Items/{0}.asset", name);
+            if (File.Exists(spritePath))
+            {
+                Sprite sprite = (Sprite)AssetDatabase.LoadAssetAtPath(spritePath, typeof(Sprite));
+                item.Sprite = sprite;
+            }
         }
+
+        AssetDatabase.SaveAssets();
         // TODO: Update the Database
     }
 
