@@ -48,6 +48,7 @@ public class Stats : ScriptableObject
     public string[] EnemyTypes;
 
     [Header("Attributes")]
+    public ScriptableAttribute.FloatReference TestingHealth;
     public Attribute Health;
     public SkillSlot[] Skills;
     public EquipmentSlot[] Equipment;
