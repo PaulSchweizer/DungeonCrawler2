@@ -1,0 +1,23 @@
+{
+  "Id": "0", 
+  "Name": "Sword", 
+  "Description": "A sword", 
+  "Skill": "MeleeWeapons", 
+  "Damage": 3, 
+  "AttackShape": [
+    {
+      "Position": [
+        0, 
+        0, 
+        0
+      ], 
+      "Radius": 4, 
+      "Angle": 90
+    }
+  ], 
+  "Speed": 2, 
+  "Aspects": [
+    "GoodAgainstEnemies"
+  ], 
+  "Tags": []
+}

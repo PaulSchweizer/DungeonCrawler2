@@ -1,0 +1,10 @@
+{
+  "Id": "0", 
+  "Name": "Shield", 
+  "Description": "A simple shield", 
+  "Protection": 1, 
+  "Aspects": [], 
+  "Tags": [
+    "cursed"
+  ]
+}

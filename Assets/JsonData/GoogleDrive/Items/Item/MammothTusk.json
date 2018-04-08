@@ -1,0 +1,9 @@
+{
+  "Id": "8F158F16-8AD5-B5E5-2FA5-F477-B77EDD7CFDA6", 
+  "Name": "MammothTusk", 
+  "Description": "The tusk of a mammoth", 
+  "Aspects": [
+    "GoodAgainstEnemies"
+  ], 
+  "Tags": []
+}

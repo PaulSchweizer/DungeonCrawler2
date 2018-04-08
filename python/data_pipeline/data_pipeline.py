@@ -15,12 +15,9 @@ def download_items():
     items = get("?Game={game}&Table=Items".format(game=game))
     for item in items:
         item["Id"] = str(item["Id"])
-        # item["Tags"] = item["Tags"] or []
-        item["Aspects"] = [] # item["Aspects"] or []
-        item.pop('EquipmentSlot', None)
-        item.pop('IsUnique', None)
-        item.pop('Description', None)
-        save("Items/Items", item["Name"], item)
+        item["Tags"] = item["Tags"] or []
+        item["Aspects"] = item["Aspects"] or []
+        save("Items/Item", item["Name"], item)
 
 
 def download_weapons():
@@ -30,12 +27,7 @@ def download_weapons():
         item["Tags"] = item["Tags"] or []
         item["Aspects"] = item["Aspects"] or []
         item["AttackShape"] = item["AttackShape"] or []
-        weapon = OrderedDict()
-        for k, v in item.items():
-            if k not in ("MinDamage", "MaxDamage", "Range",
-                         "AmmunitionPerUse", "Hands", "CalculatedCost"):
-                weapon[k] = v
-        save("Items/Weapons", weapon["Name"], weapon)
+        save("Items/Weapon", item["Name"], item)
 
 
 def download_armour():
@@ -148,8 +140,8 @@ def save(subfolder, name, data):
 
 if __name__ == "__main__":
     download_items()
-    # download_weapons()
-    # download_armour()
+    download_weapons()
+    download_armour()
     # download_locations()
     # download_cellblueprints()
     # download_monsters()

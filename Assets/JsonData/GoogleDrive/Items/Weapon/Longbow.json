@@ -1,0 +1,11 @@
+{
+  "Id": "1", 
+  "Name": "Longbow", 
+  "Description": "A longbow", 
+  "Skill": "MeleeWeapons", 
+  "Damage": 2, 
+  "AttackShape": [], 
+  "Speed": 1, 
+  "Aspects": [], 
+  "Tags": []
+}

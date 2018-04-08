@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c909a08efc7a72f4b8b37a36372441fc, type: 3}
+  m_Name: Crossing1
+  m_EditorClassIdentifier: 
+  Type: 1
+  Name: Crossing1
+  Position: {x: 25, y: 0, z: -7}
+  CanTravelTo: 1

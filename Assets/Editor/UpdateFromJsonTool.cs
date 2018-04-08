@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System.Collections.Generic;
+using System;
 
 public class UpdateFromJsonTool : EditorWindow
 {
     private string jsonRootDir = "C:/PROJECTS/DungeonCrawler2/Assets/JsonData/GoogleDrive";
+
     [MenuItem("DungeonCrawler/Update From Json")]
     private static void Init()
     {
@@ -22,31 +25,32 @@ public class UpdateFromJsonTool : EditorWindow
     private void UpdateFromJson()
     {
         // TODO: Aspects
-        UpdateItems();
-        // TODO: Weapons
-        // TODO: Armour
+        UpdateItems<Item>();
+        UpdateItems<Weapon>();
+        UpdateItems<Armour>();
         // TODO: Enemies
         // TODO: Quests
     }
 
-    private void UpdateItems()
+    private void UpdateItems<T>() where T : Item
     {
-        string aspectDatabasePath = string.Format("Assets/ScriptableObjects/Aspects/AspectDatabase.asset", name);
+        string itemType = typeof(T).FullName;
+        string aspectDatabasePath = "Assets/ScriptableObjects/Aspects/AspectDatabase.asset";
         AspectDatabase aspectDatabase = (AspectDatabase)AssetDatabase.LoadAssetAtPath(aspectDatabasePath, typeof(AspectDatabase));
-        string itemsDir = Path.Combine(Path.Combine(jsonRootDir, "Items"), "Items");
+        string itemsDir = Path.Combine(Path.Combine(jsonRootDir, "Items"), itemType);
         foreach (string file in Directory.GetFiles(itemsDir, "*.json"))
         {
             string json = File.ReadAllText(file);
             string name = new FileInfo(file).Name.Split('.')[0];
-            string path = string.Format("Assets/ScriptableObjects/Items/Items/{0}.asset", name);
-            Item item = null;
+            string path = string.Format("Assets/ScriptableObjects/Items/{0}/{1}.asset", itemType, name);
+            T item = default(T);
             if (File.Exists(path))
             {
-                item = (Item)AssetDatabase.LoadAssetAtPath(path, typeof(Item));
+                item = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
             }
             else
             {
-                item = ScriptableObject.CreateInstance<Item>();
+                item = ScriptableObject.CreateInstance<T>();
                 SaveAsset(item, path);
             }
             item.AspectDatabase = aspectDatabase;
@@ -57,11 +61,20 @@ public class UpdateFromJsonTool : EditorWindow
                 GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject));
                 item.Prefab = prefab;
             }
-            string spritePath = string.Format("Assets/Sprites/Items/Items/{0}.asset", name);
-            if (File.Exists(spritePath))
+            string[] spriteFiles = Directory.GetFiles(string.Format("Assets/Sprites/Items/{0}", itemType), string.Format("{0}.*", name));
+            if (spriteFiles.Length > 0)
             {
-                Sprite sprite = (Sprite)AssetDatabase.LoadAssetAtPath(spritePath, typeof(Sprite));
+                Sprite sprite = (Sprite)AssetDatabase.LoadAssetAtPath(spriteFiles[0], typeof(Sprite));
                 item.Sprite = sprite;
+            }
+
+            if (itemType == "Weapon")
+            {
+                string skillDatabasePath = "Assets/ScriptableObjects/Characters/Skills/SkillDatabase.asset";
+                SkillDatabase skillDatabase = (SkillDatabase)AssetDatabase.LoadAssetAtPath(skillDatabasePath, typeof(SkillDatabase));
+                Weapon weapon = item as Weapon;
+                string skill = Convert.ToString(SerializationUtilitites.DeserializeFromJson<Dictionary<string, object>>(json)["Skill"]);
+                weapon.Skill = skillDatabase.SkillByName(skill);
             }
         }
 

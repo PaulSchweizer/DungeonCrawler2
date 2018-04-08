@@ -8,6 +8,8 @@
 /Assets/CharacterData/*
 /Assets/Prefabs/*
 /Assets/Extensions/*
+/Assets/Assets/*
+/Assets/Sprites/*
 ____Build/*
 
 # Visual Studio 2015 cache directory

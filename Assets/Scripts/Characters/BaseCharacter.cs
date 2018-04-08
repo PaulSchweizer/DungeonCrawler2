@@ -78,6 +78,14 @@ public struct AttackShapeMarker
         }
         return false;
     }
+
+    public void DeserializeFromData(Dictionary<string, object> data)
+    {
+        float[] position = SerializationUtilitites.DeserializeFromObject<float[]>(data["Position"]);
+        Position = new Vector3(position[0], position[1], position[2]);
+        Radius = Convert.ToInt32(data["Radius"]);
+        Angle = Convert.ToInt32(data["Angle"]);
+    }
 }
 
 public struct AttackMarker
@@ -476,8 +484,6 @@ public class BaseCharacter : MonoBehaviour
             Gizmos.color = Color.red;
             foreach (AttackShapeMarker shape in AttackShape)
             {
-                //shape.Apply(transform.forward);
-
                 shape.Apply(transform);
 
                 center = transform.position + transform.TransformVector(shape.Position);
@@ -486,12 +492,7 @@ public class BaseCharacter : MonoBehaviour
 
                 float angle = shape.Angle * Mathf.Rad2Deg;
                 float rotation = (Mathf.PI / 180f) * (transform.eulerAngles.y - 90);
-                Vector3 to = Quaternion.AngleAxis(angle / 2 + rotation * Mathf.Rad2Deg, Vector3.up) * Vector3.left;
-                //Gizmos.DrawLine(center, center + to * shape.Radius);
                 Gizmos.DrawLine(center, center + shape.StartVector * shape.Radius);
-
-                to = Quaternion.AngleAxis(-angle / 2 + rotation * Mathf.Rad2Deg, Vector3.up) * Vector3.left;
-                //Gizmos.DrawLine(center, center + to * shape.Radius);
                 Gizmos.DrawLine(center, center + shape.EndVector * shape.Radius);
 
                 // Forward

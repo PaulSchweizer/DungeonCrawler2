@@ -123,16 +123,56 @@ Doing ######################### :
  ✔ Revise the names of the Events @done (18-04-04 21:53)
    ✔ have different event types @done (18-04-04 21:53)
  ✔ Save/Load the Character on Save/Load @done (18-04-04 22:21)
+ ✔ data pipeline for items @done (18-04-07 00:04)
+  ✔ weapons @done (18-04-07 00:04)
+  ✔ armour @done (18-04-07 00:04)
+ ✔ Worldmap @done (18-04-08 19:17)
+  ✔ Enter Level after Traveling @done (18-04-08 19:11)
+   ✔ Ask if Wants to Enter? @done (18-04-08 19:11)
+  ✔ Connection to Worldmap in the Level @done (18-04-08 18:28)
+  ✘ Double click to travel directly @cancelled (18-04-08 19:17)
+ ✔ Get 7 Heroes Pack @done (18-04-08 21:03)
+
+ ☐ ScriptableAttribute
+
+
+  ☐ StatsView
+   ☐ Image
+   ☐ Health
+   ☐ Connect On AttributeChange
+
+
+ ☐ TargetedEnemyDisplayUI
 
 
 
 Backlog ####################### :
+ ☐ Quests
+ ☐ Worldmap on GoogleDrive
+
+
+
+ ☐ ProceduralLevel
+  ☐ OnEnter: -> Take the data and create the Level
+
+ ☐ WorldmapState ScriptableObject
+  ✔ CurrentLocation @done (18-04-08 19:17)
+  ☐ CurrentTravelDestination
+   ☐ Path
+   ☐ Start
+   ☐ End
+   ☐ Percent
+ ☐ OnSceneEnter -> InitializeFromState
+ ☐ OnSceneLeave -> SerializeCurrentState to WorldmapState
+ ☐ Worldmap Travel interface
+
+
+ ☐ SaveGame take Level into account
+
+
 
  ☐ Test Enemy with bigger radius
 
-  ☐ StatsView
-   ☐ Health
-   ☐ Connect On AttributeChange
 
  ☐ Optional default spawn point
  ☐ UI - Event Information
@@ -142,9 +182,9 @@ Backlog ####################### :
  ☐ Slot Accepted Signal
 
 
-
  ☐ Way to reset the Data on each load
-  ☐ Load from json?
+s  ☐ Load from json?
+
 
  ☐ GameController
   ☐ New Game
