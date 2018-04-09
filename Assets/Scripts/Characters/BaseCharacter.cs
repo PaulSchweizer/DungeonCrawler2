@@ -394,9 +394,7 @@ public class BaseCharacter : MonoBehaviour
     public bool ReceiveDamage(int damage)
     {
         damage = Math.Max(damage - Stats.Protection, 0);
-        Stats.Health.Value -= damage;
-        Stats.TestingHealth.ApplyChange(-damage);
-        //OnPhysicalStressChanged?.Invoke(this, null);
+        Stats.Health.ApplyChange(-damage);
         if (Stats.Health.Value <= Stats.Health.MinValue)
         {
             GetsTakenOut();

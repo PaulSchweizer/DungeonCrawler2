@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: PlayerHealth
   m_EditorClassIdentifier: 
   Description: 
-  Value: 84
+  Value: 45.06
   MinValue: 0
   MaxValue: 100
   OnChanged: {fileID: 11400000, guid: b8c9cabd28ac55140b84be79c479fcb7, type: 2}

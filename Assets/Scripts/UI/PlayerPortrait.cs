@@ -10,11 +10,13 @@ public class PlayerPortrait : MonoBehaviour
     public Slider HealthSlider;
     public Stats Stats;
     public FloatReference Health;
+    public Image Portrait;
 
     private void Start()
     {
         UpdateHealth();
         Name.text = Stats.Name;
+        Portrait.sprite = Stats.Portrait;
     }
 
     public void UpdateHealth()

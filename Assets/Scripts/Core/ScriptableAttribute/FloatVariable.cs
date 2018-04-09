@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace ScriptableAttribute
 {
@@ -37,6 +39,13 @@ namespace ScriptableAttribute
         {
             Value += amount.Value;
             if (OnChanged != null) OnChanged.Raise();
+        }
+
+        public void DeserializeFromData(Dictionary<string, object> data)
+        {
+            Value = Convert.ToInt32(data["Value"]);
+            MaxValue = Convert.ToInt32(data["MaxValue"]);
+            MinValue = Convert.ToInt32(data["MinValue"]);
         }
     }
 }

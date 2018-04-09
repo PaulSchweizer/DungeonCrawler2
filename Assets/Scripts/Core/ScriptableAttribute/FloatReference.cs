@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ScriptableAttribute
 {
@@ -50,6 +51,20 @@ namespace ScriptableAttribute
         public static implicit operator float(FloatReference reference)
         {
             return reference.Value;
+        }
+
+        public void DeserializeFromData(Dictionary<string, object> data)
+        {
+            if (UseConstant)
+            {
+                Variable.DeserializeFromData(data);
+            }
+            else
+            {
+                ConstantValue = Convert.ToInt32(data["Value"]);
+                ConstantMaxValue = Convert.ToInt32(data["MaxValue"]);
+                ConstantMinValue = Convert.ToInt32(data["MinValue"]);
+            }
         }
     }
 }

@@ -32,6 +32,8 @@ namespace ScriptableAttribute
             SerializedProperty useConstant = property.FindPropertyRelative("UseConstant");
             SerializedProperty constantValue = property.FindPropertyRelative("ConstantValue");
             SerializedProperty variable = property.FindPropertyRelative("Variable");
+            SerializedProperty minValue = property.FindPropertyRelative("ConstantMinValue");
+            SerializedProperty maxValue = property.FindPropertyRelative("ConstantMaxValue");
 
             // Calculate rect for configuration button
             Rect buttonRect = new Rect(position);
@@ -47,9 +49,25 @@ namespace ScriptableAttribute
 
             useConstant.boolValue = result == 0;
 
+            if (useConstant.boolValue)
+            {
+                position.xMax = position.xMin + 30;
+            }
+
             EditorGUI.PropertyField(position,
                 useConstant.boolValue ? constantValue : variable,
                 GUIContent.none);
+
+            // Min and Max
+            if (useConstant.boolValue)
+            {
+                position.xMin += 30;
+                position.xMax += 30;
+                EditorGUI.PropertyField(position, minValue, GUIContent.none);
+                position.xMin += 30;
+                position.xMax += 30;
+                EditorGUI.PropertyField(position, maxValue, GUIContent.none);
+            }
 
             if (EditorGUI.EndChangeCheck())
                 property.serializedObject.ApplyModifiedProperties();

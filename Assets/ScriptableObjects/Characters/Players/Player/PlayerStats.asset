@@ -11,20 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe6089556867c24685a01cb0ddfb54e, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  Name: PlayerA
+  Name: Miiro
+  Portrait: {fileID: 21300000, guid: 86eb1ded34da2ef4dbf9a1aa59d38783, type: 3}
   Type: Player
   EnemyTypes:
   - Enemy
-  TestingHealth:
+  Health:
     UseConstant: 0
-    ConstantValue: 10
+    ConstantValue: 0
     ConstantMinValue: 0
     ConstantMaxValue: 0
     Variable: {fileID: 11400000, guid: 5d4d509ffa8f68c43a4f74f6fb17cb44, type: 2}
-  Health:
-    Value: 918
-    MaxValue: 1000
-    MinValue: 0
   Skills:
   - Skill: {fileID: 11400000, guid: 77716457f5a29984bb27cbbfdee5754f, type: 2}
     Value: 1
@@ -35,7 +32,7 @@ MonoBehaviour:
     Item: {fileID: 11400000, guid: 5b78b3e613f04f64a8e69ecb82502fd2, type: 2}
   - Name: Armour
     Item: {fileID: 11400000, guid: d971ddd5c6a7a7b4597853efc3342a81, type: 2}
-  XP: 640
+  XP: 880
   SkillPoints: 1
   Radius: 0.5
   AlertnessRadius: 5

@@ -16,9 +16,11 @@ MonoBehaviour:
   EnemyTypes:
   - Player
   Health:
-    Value: 10
-    MaxValue: 10
-    MinValue: 0
+    UseConstant: 1
+    ConstantValue: 10
+    ConstantMinValue: 0
+    ConstantMaxValue: 10
+    Variable: {fileID: 0}
   Skills: []
   Equipment: []
   XP: 0

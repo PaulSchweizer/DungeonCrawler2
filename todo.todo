@@ -132,15 +132,12 @@ Doing ######################### :
   ✔ Connection to Worldmap in the Level @done (18-04-08 18:28)
   ✘ Double click to travel directly @cancelled (18-04-08 19:17)
  ✔ Get 7 Heroes Pack @done (18-04-08 21:03)
-
- ☐ ScriptableAttribute
-  ☐ TestingHealth to Health
-
+ ✔ ScriptableAttribute @done (18-04-09 22:32)
+  ✔ TestingHealth to Health @done (18-04-09 22:32)
 
   ☐ StatsView
+   ✔ Health @done (18-04-09 22:32)
    ☐ Image
-   ☐ Health
-   ☐ Connect On AttributeChange
 
 
  ☐ TargetedEnemyDisplayUI
@@ -150,8 +147,6 @@ Doing ######################### :
 Backlog ####################### :
  ☐ Quests
  ☐ Worldmap on GoogleDrive
-
-
 
  ☐ ProceduralLevel
   ☐ OnEnter: -> Take the data and create the Level

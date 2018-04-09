@@ -44,12 +44,12 @@ public class SkillSlot
 public class Stats : ScriptableObject
 {
     public string Name;
+    public Sprite Portrait;
     public string Type;
     public string[] EnemyTypes;
 
     [Header("Attributes")]
-    public ScriptableAttribute.FloatReference TestingHealth;
-    public Attribute Health;
+    public ScriptableAttribute.FloatReference Health;
     public SkillSlot[] Skills;
     public EquipmentSlot[] Equipment;
 
@@ -181,7 +181,7 @@ public class Stats : ScriptableObject
             //}
             cost += Protection;
             cost += Damage;
-            cost += Health.MaxValue;
+            cost += (int)Health.MaxValue;
             return cost;
         }
     }
