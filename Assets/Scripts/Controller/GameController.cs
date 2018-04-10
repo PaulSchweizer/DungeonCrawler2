@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
     private void InitializeGame(Dictionary<string, string> data)
     {
         NextSceneName = data["Location"];
+        PreviousSceneName = data["PreviousLocation"];
         sceneState = SceneState.FadeOut;
     }
 
@@ -227,7 +228,7 @@ public class GameController : MonoBehaviour
 
     private void UpdateSceneLoad()
     {
-        // Pass on the current scene name
+        // Pass on the previous scene name
         OnSceneLoaded.Raise(PreviousSceneName);
     }
 
