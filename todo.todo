@@ -137,14 +137,17 @@ Doing ######################### :
   ✔ StatsView @done (18-04-09 23:12)
    ✔ Health @done (18-04-09 22:32)
    ✔ Image @done (18-04-09 23:12)
- ☐ SaveGame take Level into account
-  ☐ Save Previous Scene Name to the GameData
+ ✔ SaveGame take Level into account @done (18-04-11 21:29)
+  ✔ Save Previous Scene Name to the GameData @done (18-04-11 21:29)
 
-
+ ☐ Stats.OnSkillChanged
+  ☐ Connect to SkillsPanel and SkillUI
 
 
 
 Backlog ####################### :
+ ☐ Avoid the popup of the travel ui
+  ☐ Optional default spawn point
  ☐ TargetedEnemyDisplayUI
  ☐ Quests
  ☐ Worldmap on GoogleDrive
@@ -170,7 +173,6 @@ Backlog ####################### :
  ☐ Test Enemy with bigger radius
 
 
- ☐ Optional default spawn point
  ☐ UI - Event Information
 
 ☐ ConnectEvents

@@ -80,8 +80,6 @@ namespace Worldmap
 
         public void Enter(string currentLocationName)
         {
-            print(currentLocationName);
-            //if (currentLocationName == "") currentLocationName = PlayerSettings.CurrentLocation;
             Initialize(currentLocationName);
             OnSceneReady.Raise("");
         }

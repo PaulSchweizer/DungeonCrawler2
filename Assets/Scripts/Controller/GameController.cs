@@ -128,6 +128,7 @@ public class GameController : MonoBehaviour
         saveFile.Directory.Create();
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["Location"] = SceneManager.GetActiveScene().name;
+        data["PreviousLocation"] = PreviousSceneName;
         File.WriteAllText(saveFile.FullName, SerializationUtilitites.SerializeToJson(data));
         Debug.Log(string.Format("Saved Game to: {0}", savePath));
 

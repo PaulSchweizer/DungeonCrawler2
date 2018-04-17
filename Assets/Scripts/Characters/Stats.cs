@@ -73,6 +73,7 @@ public class Stats : ScriptableObject
     public CharacterSet EnemySet;
 
     [Header("Events")]
+    public GameEvent OnSkillChanged;
     public GameEvent ItemEquipped;
     public GameEvent ItemUnEquipped;
 
