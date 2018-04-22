@@ -20,19 +20,19 @@ public class SkillPanelUI : MonoBehaviour
     {
         Name.text = SkillSlot.Skill.Name;
         Value.text = Convert.ToString(SkillSlot.Value);
-        if (Stats.SkillPoints > 0)
+        if (Stats.SkillPoints >= SkillSlot.Skill.Cost(SkillSlot.Value))
         {
-            RaiseButton.interactable = false;
+            RaiseButton.interactable = true;
         }
         else
         {
-            RaiseButton.interactable = true;
+            RaiseButton.interactable = false;
         }
     }
 
     public void RaiseSkill()
     {
-        SkillSlot.Value += 1;
+        bool success = Stats.RaiseSkill(SkillSlot.Skill);
         UpdateDisplay();
     }
 }

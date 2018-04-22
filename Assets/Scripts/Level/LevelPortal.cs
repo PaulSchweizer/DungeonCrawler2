@@ -5,6 +5,7 @@ public class LevelPortal : MonoBehaviour
     public string Destination;
     public StringGameEvent OnLevelSwitchRequested;
     public GameEvent OnLevelSwitchAborted;
+    public Transform SpawnPoint;
 
     private void OnTriggerEnter(Collider other)
     {

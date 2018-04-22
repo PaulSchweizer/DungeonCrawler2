@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillsUI : MonoBehaviour
 {
     [Header("References")]
     public Stats Stats;
+    public Text AvailableSkillPointsText;
+    public RectTransform SkillPanelParent;
 
     [Header("Prefabs")]
     public SkillPanelUI SkillPanelPrefab;
-
-    public RectTransform SkillPanelParent;
 
     private Dictionary<string, SkillPanelUI> SkillPanels = new Dictionary<string, SkillPanelUI>();
 
@@ -24,7 +25,8 @@ public class SkillsUI : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        foreach(SkillSlot skillSlot in Stats.Skills)
+        AvailableSkillPointsText.text = Convert.ToString(Stats.SkillPoints);
+        foreach (SkillSlot skillSlot in Stats.Skills)
         {
             SkillPanelUI panel;
             SkillPanels.TryGetValue(skillSlot.Skill.Name, out panel);

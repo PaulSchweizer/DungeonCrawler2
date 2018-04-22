@@ -26,14 +26,14 @@ MonoBehaviour:
   - Skill: {fileID: 11400000, guid: 77716457f5a29984bb27cbbfdee5754f, type: 2}
     Value: 1
   - Skill: {fileID: 11400000, guid: 1579f5a52bd84e54cb425b0991e4a8e1, type: 2}
-    Value: 2
+    Value: 1
   Equipment:
   - Name: Weapon
     Item: {fileID: 11400000, guid: 5b78b3e613f04f64a8e69ecb82502fd2, type: 2}
   - Name: Armour
     Item: {fileID: 11400000, guid: d971ddd5c6a7a7b4597853efc3342a81, type: 2}
-  XP: 880
-  SkillPoints: 1
+  XP: 0
+  SkillPoints: 0
   Radius: 0.5
   AlertnessRadius: 5
   Tags:
@@ -45,5 +45,8 @@ MonoBehaviour:
   AspectDatabase: {fileID: 11400000, guid: fc06470a20ece0545a37c6d548055105, type: 2}
   CharacterSet: {fileID: 11400000, guid: fada659ec72c59b4c9a3b6f900e68aa8, type: 2}
   EnemySet: {fileID: 11400000, guid: c273562cfda44844c91f6e123fbde012, type: 2}
+  GameEventsLogger: {fileID: 11400000, guid: 24eb5139f9d5dc54783cb42b5d68047e, type: 2}
+  OnLevelUp: {fileID: 11400000, guid: 4218c6c0f98596b4b853c801084a36e1, type: 2}
+  OnStatsChanged: {fileID: 11400000, guid: c800dbebe26d2b54bb3dc1e97fb976e6, type: 2}
   ItemEquipped: {fileID: 11400000, guid: 93e38c69eeac57c4eb3c31664ecd9a1f, type: 2}
   ItemUnEquipped: {fileID: 11400000, guid: 64225d4f52ea3a74f99bf202fa7740be, type: 2}

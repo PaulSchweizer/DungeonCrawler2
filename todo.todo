@@ -139,18 +139,24 @@ Doing ######################### :
    ✔ Image @done (18-04-09 23:12)
  ✔ SaveGame take Level into account @done (18-04-11 21:29)
   ✔ Save Previous Scene Name to the GameData @done (18-04-11 21:29)
-
- ☐ Stats.OnSkillChanged
-  ☐ Connect to SkillsPanel and SkillUI
+ ✔ Stats.OnSkillChanged @done (18-04-22 18:02)
+  ✔ Connect to SkillsPanel and SkillUI @done (18-04-22 18:02)
+ ✔ Replace Attribute Changed @done (18-04-22 18:07)
+ ✔ GameEventsLogger.LogReachesNextLevel @done (18-04-22 18:37)
+ ✔ MenuBar is off? @done (18-04-22 18:58)
+ ✔ Avoid the popup of the travel ui @done (18-04-22 19:12)
+  ✔ Optional default spawn point @done (18-04-22 19:12)
+ ✔ GameController: New Game @done (18-04-22 19:19)
+ ✔ GameController: SwitchLevel @done (18-04-22 19:19)
+ ✔ TakenOutEnemy: Disable the Collider (for clicking ) @done (18-04-22 19:35)
+ ✔ Remove EnemyTypes from the Characters @done (18-04-22 19:39)
+ ☐ Worldmap on GoogleDrive
 
 
 
 Backlog ####################### :
- ☐ Avoid the popup of the travel ui
-  ☐ Optional default spawn point
  ☐ TargetedEnemyDisplayUI
  ☐ Quests
- ☐ Worldmap on GoogleDrive
 
  ☐ ProceduralLevel
   ☐ OnEnter: -> Take the data and create the Level
@@ -168,12 +174,9 @@ Backlog ####################### :
 
 
 
-
-
  ☐ Test Enemy with bigger radius
-
-
  ☐ UI - Event Information
+
 
 ☐ ConnectEvents
  ☐ Slot Rejected Signal
@@ -181,17 +184,14 @@ Backlog ####################### :
 
 
  ☐ Way to reset the Data on each load
-s  ☐ Load from json?
+  ☐ Load from json?
 
 
- ☐ GameController
-  ☐ New Game
-  ☐ SwitchLevel
 
 
  ☐ States as ScriptableObjects?
 
- ☐ Remove EnemyTypes from the Characters
+
 
 
  ☐ GameMaster -> ScriptableObject, referenced by Character etc.

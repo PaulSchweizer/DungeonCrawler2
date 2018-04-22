@@ -3002,31 +3002,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114738333843600410, guid: 408cead86b231d64c9831b7ec845b6a1,
-        type: 2}
-      propertyPath: Destination
-      value: Wygard
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098842707929922, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098842707929922, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
   m_IsPrefabParent: 0
@@ -3541,15 +3516,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
       propertyPath: m_LocalScale.x
-      value: 5.091052
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
       propertyPath: m_LocalScale.y
-      value: 5.0910535
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4590340014982856, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
       propertyPath: m_LocalScale.z
-      value: 5.0910535
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114738333843600410, guid: 408cead86b231d64c9831b7ec845b6a1,
         type: 2}
@@ -3567,6 +3542,10 @@ Prefab:
     - target: {fileID: 1098842707929922, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
       propertyPath: m_Name
       value: LevelPortal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128889532313206, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 408cead86b231d64c9831b7ec845b6a1, type: 2}

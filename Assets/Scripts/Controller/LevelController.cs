@@ -25,7 +25,7 @@ public class LevelController : MonoBehaviour
         {
             if (previousSceneName == portal.Destination)
             {
-                player.transform.position = portal.transform.position;
+                player.transform.position = portal.SpawnPoint.position;
                 break;
             }
         }

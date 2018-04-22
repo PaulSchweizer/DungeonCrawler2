@@ -29,12 +29,7 @@ public class GameEventsLogger : ScriptableObject
 
     private LogMessage _defaultLogMessage = new LogMessage();
 
-    //public string ReceivePhysicalStressTemplate = "\u2661 __{0}__ receives {1} _PhysicalStress_";
-    //public string TakeConsequenceTemplate = "\u2661 __{0}__ takes _Consequence_ \"{1}\" {2}";
-    //public string GetsTakenOutTemplate = "\u271D __{0}__ is _taken out_";
     //public string UsesStuntTemplate = "\u272A __{0}__ uses __Stunt__ _{1}_ ({2})";
-    //public string ReceivesXPTemplate = "\u2795 __{0}__ receives {1} __XP__";
-    //public string ReachesNextLevelTemplate = "\u2191 __{0}__ reaches __Level__ {1}";
     //public string HealingSuccessTemplate = "__{0}__ _heals_ __{1}__ of _{2}_ with {3} ({4}+D{5})";
     //public string HealingFailTemplate = "__{0}__ fails at _healing_ __{1}__ of _{2}_ with {3} ({4}+D{5})";
 
@@ -96,20 +91,17 @@ public class GameEventsLogger : ScriptableObject
                              skill.Name, totalDefendValue, defendValue, diceValue), logMessage);
     }
 
-    //public static void LogReceivePhysicalStress(Character.Character character, int damage)
-    //{
-    //    AddLog(string.Format(ReceivePhysicalStressTemplate, character.Name, damage), "ReceivePhysicalStress");
-    //}
+    public void LogReceivesDamage(BaseCharacter character, int damage)
+    {
+        LogMessage logMessage = LogMessageByName("ReceivesDamage");
+        AddLog(string.Format(logMessage.Template, character.Stats.Name, damage), logMessage);
+    }
 
-    //public static void LogTakeConsequence(Character.Character character, Consequence consequence)
-    //{
-    //    AddLog(string.Format(TakeConsequenceTemplate, character.Name, consequence.Name, consequence.Capacity), "TakePhysicalStress");
-    //}
-
-    //public static void LogGetsTakenOut(Character.Character character)
-    //{
-    //    AddLog(string.Format(GetsTakenOutTemplate, character.Name), "TakenOut");
-    //}
+    public void LogGetsTakenOut(BaseCharacter character)
+    {
+        LogMessage logMessage = LogMessageByName("GetsTakenOut");
+        AddLog(string.Format(logMessage.Template, character.Stats.Name), logMessage);
+    }
 
     public  void LogGainsSpin(BaseCharacter character, int spin)
     {
@@ -128,15 +120,17 @@ public class GameEventsLogger : ScriptableObject
         AddLog(string.Format(logMessage.Template, character.Stats.Name, spin), logMessage);
     }
 
-    //public static void LogReceivesXP(Character.Character character, int xp)
-    //{
-    //    AddLog(string.Format(ReceivesXPTemplate, character.Name, xp), "ReceivesXP");
-    //}
+    public void LogReceivedXP(Stats characterStats, int xp)
+    {
+        LogMessage logMessage = LogMessageByName("ReceivedXP");
+        AddLog(string.Format(logMessage.Template, characterStats.Name, xp), logMessage);
+    }
 
-    //public static void LogReachesNextLevel(Character.Character character)
-    //{
-    //    AddLog(string.Format(ReachesNextLevelTemplate, character.Name, character.Level), "ReachesNextLevel");
-    //}
+    public void LogLevelUp(Stats characterStats)
+    {
+        LogMessage logMessage = LogMessageByName("LevelUp");
+        AddLog(string.Format(logMessage.Template, characterStats.Name, characterStats.Level), logMessage);
+    }
 
     //public static void LogHealing(Character.Character character, Character.Character patient,
     //    Consequence consequence, int totalValue, int skillValue, int diceValue, bool success)

@@ -12,11 +12,15 @@ public class StatusUI : MonoBehaviour
     public Slider XPSlider;
     public Text XPValue;
 
+    private void Awake()
+    {
+        UpdateDisplay();
+    }
+
     public void UpdateDisplay()
     {
         NameValue.text = Stats.Name;
 
-        // Level
         LevelValue.text = Stats.Level.ToString();
         XPSlider.maxValue = Stats.XPForLevel(Stats.Level + 1) - Stats.XPForLevel(Stats.Level);
         XPSlider.minValue = 0;

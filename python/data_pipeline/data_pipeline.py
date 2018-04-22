@@ -122,6 +122,10 @@ def download_rulebook():
     save("", "Rulebook", rulebook[0])
 
 
+def download_worldmap():
+    pass
+
+
 def get(request):
     """GET request to google spreadsheets."""
     return json.load(urllib2.urlopen(url + request),
@@ -151,3 +155,4 @@ if __name__ == "__main__":
     # download_quests()
     # download_globalstate()
     # download_rulebook()
+    download_worldmap()

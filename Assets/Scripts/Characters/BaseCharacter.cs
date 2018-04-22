@@ -163,6 +163,7 @@ public class BaseCharacter : MonoBehaviour
     [Header("Components")]
     public UnityEngine.AI.NavMeshAgent NavMeshAgent;
     public Animator Animator;
+    public Collider collider;
 
     [Header("Data")]
     public Stats Stats;
@@ -394,11 +395,15 @@ public class BaseCharacter : MonoBehaviour
     public bool ReceiveDamage(int damage)
     {
         damage = Math.Max(damage - Stats.Protection, 0);
-        Stats.Health.ApplyChange(-damage);
-        if (Stats.Health.Value <= Stats.Health.MinValue)
+        if (damage > 0)
         {
-            GetsTakenOut();
-            return true;
+            Stats.Health.ApplyChange(-damage);
+            GameEventsLogger.LogReceivesDamage(this, damage);
+            if (Stats.Health.Value <= Stats.Health.MinValue)
+            {
+                GetsTakenOut();
+                return true;
+            }
         }
         return false;
     }
@@ -406,8 +411,8 @@ public class BaseCharacter : MonoBehaviour
     public void GetsTakenOut()
     {
         ChangeState(TakenOut);
-        //IsTakenOut = true;
-        //GameEventsLogger.LogGetsTakenOut(this);
+        GameEventsLogger.LogGetsTakenOut(this);
+        collider.enabled = false;             
         //OnTakenOut?.Invoke(this, null);
     }
 

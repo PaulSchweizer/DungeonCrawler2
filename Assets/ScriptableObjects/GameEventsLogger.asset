@@ -11,15 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0923685ab2a5ca340873cd64cb13e53b, type: 3}
   m_Name: GameEventsLogger
   m_EditorClassIdentifier: 
-  ShowLogs: 0
+  ShowLogs: 1
   SendAnalytics: 0
   LogMessages:
   - Name: Attack
     Template: "\u2694 __{0}__ _attacks_ __{1}__ with _{2}_ {3} ({4}+D{5})"
-    Enabled: 1
-    Analytics: 1
+    Enabled: 0
+    Analytics: 0
   - Name: Defend
-    Template: \u26C9 __{0}__ _defends_ against __{1}__ with _{2}_ {3} ({4}+D{5})
+    Template: "\u26C9__{0}__ _defends_ against __{1}__ with _{2}_ {3} ({4}+D{5})"
     Enabled: 0
     Analytics: 0
   - Name: GainsSpin
@@ -41,4 +41,20 @@ MonoBehaviour:
   - Name: ItemRemoved
     Template: 'Item Removed from {0}: -{1} {2}'
     Enabled: 0
+    Analytics: 0
+  - Name: LevelUp
+    Template: __{0}__ reaches __Level__ {1}
+    Enabled: 1
+    Analytics: 0
+  - Name: ReceivedXP
+    Template: __{0}__ receives {1} __XP__
+    Enabled: 1
+    Analytics: 0
+  - Name: GetsTakenOut
+    Template: __{0}__ is _taken out_
+    Enabled: 1
+    Analytics: 0
+  - Name: ReceivesDamage
+    Template: __{0}__ receives {1} _Damage_
+    Enabled: 1
     Analytics: 0

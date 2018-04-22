@@ -7,4 +7,9 @@ public class Skill : ScriptableObject
     public string Description;
     public Skill[] OpposingSkills;
     public string[] Actions;
+
+    public int Cost(int oldValue)
+    {
+        return oldValue + 1;
+    }
 }

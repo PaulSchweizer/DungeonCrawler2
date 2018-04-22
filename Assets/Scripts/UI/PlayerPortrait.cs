@@ -12,7 +12,7 @@ public class PlayerPortrait : MonoBehaviour
     public FloatReference Health;
     public Image Portrait;
 
-    private void Start()
+    private void Awake()
     {
         UpdateHealth();
         Name.text = Stats.Name;

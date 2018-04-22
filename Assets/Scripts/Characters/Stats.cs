@@ -71,9 +71,11 @@ public class Stats : ScriptableObject
     public AspectDatabase AspectDatabase;
     public CharacterSet CharacterSet;
     public CharacterSet EnemySet;
+    public GameEventsLogger GameEventsLogger;
 
     [Header("Events")]
-    public GameEvent OnSkillChanged;
+    public GameEvent OnLevelUp;
+    public GameEvent OnStatsChanged;
     public GameEvent ItemEquipped;
     public GameEvent ItemUnEquipped;
 
@@ -81,6 +83,26 @@ public class Stats : ScriptableObject
     private List<Armour> _equippedArmour = new List<Armour>();
 
     #region Aspects and Skills
+
+    public bool RaiseSkill(Skill skill)
+    {
+        for (int i = 0; i < Skills.Length; i++)
+        {
+            if (Skills[i].Skill == skill)
+            {
+                int cost = Skills[i].Skill.Cost(Skills[i].Value);
+                if (SkillPoints >= cost)
+                {
+                    Skills[i].Value += 1;
+                    SkillPoints -= cost;
+                    OnStatsChanged.Raise();
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
 
     public int SkillValueModifiers(Skill skill, string[] tags)
     {
@@ -138,15 +160,6 @@ public class Stats : ScriptableObject
                 }
             }
 
-            // Aspects of all taken Consequences
-            //foreach (Consequence consequence in AllConsequences)
-            //{
-            //    if (consequence.IsTaken)
-            //    {
-            //        aspects.Add(consequence.Effect);
-            //    }
-            //}
-
             // Aspects from the equipped Items
             foreach(EquipmentSlot slot in Equipment)
             {
@@ -176,10 +189,6 @@ public class Stats : ScriptableObject
             {
                 cost += slot.Value;
             }
-            //foreach (Consequence consequence in AllConsequences)
-            //{
-            //    cost += consequence.Capacity;
-            //}
             cost += Protection;
             cost += Damage;
             cost += (int)Health.MaxValue;
@@ -202,19 +211,25 @@ public class Stats : ScriptableObject
 
     public void ReceiveXP(int xp)
     {
-        //GameEventsLogger.LogReceivesXP(this, xp);
+        GameEventsLogger.LogReceivedXP(this, xp);
         int previousLevel = Level;
         XP += xp;
         if (previousLevel < Level)
         {
             NextLevelReached();
         }
+        else
+        {
+            OnStatsChanged.Raise();
+        }
     }
 
     public void NextLevelReached()
     {
-        //GameEventsLogger.LogReachesNextLevel(this);
+        GameEventsLogger.LogLevelUp(this);
         SkillPoints += 1;
+        OnLevelUp.Raise();
+        OnStatsChanged.Raise();
     }
 
     #endregion
