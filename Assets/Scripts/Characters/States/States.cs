@@ -119,10 +119,11 @@ public class ChaseState : CharacterState
             }
             else
             {
-                float speed = (character.NavMeshAgent.angularSpeed * Mathf.PI) / 180;
-                Vector3 to = character.NavMeshAgent.destination - character.transform.position;
-                Quaternion _lookRotation = Quaternion.LookRotation(to);
-                character.transform.rotation = Quaternion.Slerp(character.transform.rotation, _lookRotation, speed * Time.deltaTime);
+                character.transform.LookAt(character.NavMeshAgent.destination);
+                // float speed = (character.NavMeshAgent.angularSpeed * Mathf.PI) / 180;
+                //Vector3 to = character.NavMeshAgent.destination - character.transform.position;
+                //Quaternion _lookRotation = Quaternion.LookRotation(to);
+                //character.transform.rotation = Quaternion.Slerp(character.transform.rotation, _lookRotation, speed * Time.deltaTime);
             }
         }
     }

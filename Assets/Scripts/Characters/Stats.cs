@@ -46,7 +46,6 @@ public class Stats : ScriptableObject
     public string Name;
     public Sprite Portrait;
     public string Type;
-    public string[] EnemyTypes;
 
     [Header("Attributes")]
     public ScriptableAttribute.FloatReference Health;
@@ -343,7 +342,6 @@ public class Stats : ScriptableObject
         data["Name"] = Name;
         data["Health"] = Health;
         data["Type"] = Type;
-        data["EnemyTypes"] = EnemyTypes;
 
         // Skills
         Dictionary<string, int> skills = new Dictionary<string, int>();
@@ -386,7 +384,6 @@ public class Stats : ScriptableObject
         Name = Convert.ToString(data["Name"]);
         Type = Convert.ToString(data["Type"]);
         Health.DeserializeFromData(SerializationUtilitites.DeserializeFromObject<Dictionary<string, object>>(data["Health"]));
-        EnemyTypes = SerializationUtilitites.DeserializeFromObject<string[]>(data["EnemyTypes"]);
 
         List<SkillSlot> skills = new List<SkillSlot>();
         foreach (KeyValuePair<string, int> entry in SerializationUtilitites.DeserializeFromObject<Dictionary<string, int>>(data["Skills"]))

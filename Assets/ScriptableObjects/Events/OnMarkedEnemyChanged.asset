@@ -8,11 +8,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb60fcf337a14042b28d93b880fa271, type: 3}
-  m_Name: PlayerHealth
+  m_Script: {fileID: 11500000, guid: 6cef744420c9271478dd566a6dd7576a, type: 3}
+  m_Name: OnMarkedEnemyChanged
   m_EditorClassIdentifier: 
-  Description: 
-  Value: 490
-  MinValue: 0
-  MaxValue: 500
-  OnChanged: {fileID: 11400000, guid: b8c9cabd28ac55140b84be79c479fcb7, type: 2}

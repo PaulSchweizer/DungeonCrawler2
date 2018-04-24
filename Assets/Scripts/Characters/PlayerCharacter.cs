@@ -7,6 +7,22 @@ public class PlayerCharacter : BaseCharacter
     public Transform WeaponParent;
     public Transform ArmourParent;
 
+    [Header("Events")]
+    public GameEvent OnMarkedEnemyChanged;
+
+    public override BaseCharacter MarkedEnemy
+    {
+        get
+        {
+            return _markedEnemy;
+        }
+        set
+        {
+            _markedEnemy = value;
+            OnMarkedEnemyChanged.Raise();
+        }
+    }
+
     private Dictionary<string, GameObject> ItemInstances = new Dictionary<string, GameObject>();
 
     public override void Awake()

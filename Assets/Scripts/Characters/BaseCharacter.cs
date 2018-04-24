@@ -182,7 +182,18 @@ public class BaseCharacter : MonoBehaviour
     // Logic
     public AttackMarker ScheduledAttack;
     public int Spin;
-    public BaseCharacter MarkedEnemy;
+    protected BaseCharacter _markedEnemy;
+    public virtual BaseCharacter MarkedEnemy
+    {
+        get
+        {
+            return _markedEnemy;
+        }
+        set
+        {
+            _markedEnemy = value;
+        }
+    }
 
     [Header("Debug")]
     public GameEventsLogger GameEventsLogger;

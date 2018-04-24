@@ -10,6 +10,7 @@ public class LevelController : MonoBehaviour
     public GameObject MenuBarPrefab;
     public LevelPortalUI LevelPortalUIPrefab;
     public PlayerUI PlayerUIPrefab;
+    public MarkedEnemyUI MarkedEnemyUIPrefab;
 
     [Header("Events")]
     public StringGameEvent OnSceneReady;
@@ -39,6 +40,7 @@ public class LevelController : MonoBehaviour
         if (GameObject.Find("MenuBar") == null) Instantiate(MenuBarPrefab);
         if (FindObjectOfType<PlayerUI>() == null) Instantiate(PlayerUIPrefab);
         if (FindObjectOfType<LevelPortalUI>() == null) Instantiate(LevelPortalUIPrefab);
+        if (FindObjectOfType<MarkedEnemyUI>() == null) Instantiate(MarkedEnemyUIPrefab);
 
         OnSceneReady.Raise("");
     }
